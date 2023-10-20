@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        'all-screen': 'calc(100vh - 56px)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
