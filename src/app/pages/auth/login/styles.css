@@ -1,0 +1,75 @@
+.container-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 96px);
+}
+@media (max-width: 478px){
+    .container-login{
+        height: 100vh;
+    }
+}
+
+
+.container-login .image-client{
+    flex: 8;
+    height: 100%;
+    background-image: url("../../../../assets/images/robot-hand.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@media (max-width: 315px){
+    .container-login .image-client{
+        display: none;
+    }
+}
+
+.container-login .image-colab{
+    flex: 8;
+    height: 100%;
+    background-image: url("../../../../assets/images/truck.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@media (max-width: 315px){
+    .container-login .image-colab{
+        display: none;
+    }
+}
+
+
+.container-login .login{
+    flex: 3;
+    min-width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 32px;
+}
+@media (max-width: 315px){
+    .container-login .login{
+        min-width: 0;
+    }
+}
+
+.container-login img{
+    margin: 0 auto;
+}
+
+.container-login h1{
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 32px 0 18px 0;
+}
+
+.container-login .login form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
