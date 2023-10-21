@@ -1,0 +1,89 @@
+.primary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: rgb(0, 102, 255);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.primary:hover{
+    background-color: rgb(0, 102, 255, 0.8);
+}
+
+.secondary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: rgba(136, 136, 136, 0.13);
+    border: 1px solid rgb(161, 161, 161);
+    color: #000;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.secondary:hover{
+    background-color: rgba(136, 136, 136, 0.3);
+}
+
+.success{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: rgb(16, 238, 16);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.success:hover{
+    background-color: rgb(0, 255, 0, 0.8);
+}
+
+.danger{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: rgb(233, 7, 7);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.danger:hover{
+    background-color: rgb(255, 0, 0, 0.8);
+}
+
+.link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: transparent;
+    color: #000;
+    font-weight: 500;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.link:hover{
+    background-color: rgba(146, 146, 146, 0.185);
+}
