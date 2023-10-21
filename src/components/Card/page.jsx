@@ -1,8 +1,8 @@
-import Image from "next/image";
+import "./styles.css";
 
 export default function Card({ children }) {
     return (
-        <div className="flex flex-col gap-3 items-center border border-slate-300 rounded-xl p-4">
+        <div className="container-card">
             {children}
         </div>
     )
