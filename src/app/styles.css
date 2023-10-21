@@ -243,7 +243,7 @@
     color: #fff;
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 5rem 0 0 0;
+    margin: 5rem 0 2rem 0;
     text-align: center;
 }
 
@@ -262,6 +262,19 @@
     }
 }
 
+.principles-div .card-title{
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+
+
+
+
+
 .group-div{
     background: rgba( 59, 135, 247, 0.4 );
     backdrop-filter: blur( 3px );
@@ -271,6 +284,7 @@
     flex-direction: column;
     height: auto;
     width: 97%;
+    padding-bottom: 6rem;
 }
 @media (max-width: 1440px) {
     .group-div{
@@ -294,8 +308,10 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 12px;
     width: 100%;
     height: 100%;
+    padding: 1rem 0;
 }
 @media (max-width: 1024px) {
     .group-content{
@@ -303,50 +319,16 @@
     }
 }
 
-
-
-.contact-div{
-    background: rgba( 59, 135, 247, 0.4 );
-    backdrop-filter: blur( 3px );
-    -webkit-backdrop-filter: blur( 3px );
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    width: 97%;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
+.group-content .card-image{
+    border-radius: 8px;
 }
-
-.contact-title{
-    color: #fff;
-    font-size: 2.5rem;
+.group-content .card-title{
+    color: #000;
+    font-size: 1.3rem;
     font-weight: 700;
-    text-align: center;
-    width: 100%;
 }
 
-.form-contact{
+.group-content .buttons-card{
     display: flex;
-    flex-direction: column;
-    width: 500px;
-    gap: 0.8rem;
-}
-@media (max-width: 650px) {
-    .form-contact{
-        width: 100%;
-        padding: 2rem;
-    }
-}
-
-.form-contact input{
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: "Inter", sans-serif;
+    gap: 8px;
 }
