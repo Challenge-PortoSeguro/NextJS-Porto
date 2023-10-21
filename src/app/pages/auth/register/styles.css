@@ -1,0 +1,71 @@
+.container-register{
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 96px);
+}
+@media (max-width: 500px){
+    .container-register{
+        height: auto;
+    }
+}
+
+.container-register .image{
+    flex: 6;
+    height: 100%;
+    background-image: url("../../../../assets/images/robot-typing.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@media (max-width: 500px){
+    .container-register .image{
+        display: none;
+    }
+}
+
+.container-register .register{
+    flex: 6;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 32px;
+}
+@media (max-width: 500px){
+    .container-register .register{
+        min-width: 0;
+        flex: content;
+    }
+}
+
+.container-register h1{
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.container-register .register form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 0 16px 0;
+}
+
+.two-inputs{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+@media (max-width: 500px){
+    .two-inputs{
+        flex-direction: column;
+    }
+}
+
+.div-buttons{
+    display: flex;
+    justify-content: space-between;
+    & button{
+        width: 48%;
+    }
+}
+
