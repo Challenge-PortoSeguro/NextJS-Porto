@@ -9,8 +9,18 @@ export default function ProfileClient() {
     const icons = useMemo(() => ({
         play: renderIcon({ name: "play", size: 18, color: "#000" }),
         edit: renderIcon({ name: "edit", size: 18, color: "#ffffff" }),
-      }), []);
+    }), []);
 
+    const data = [
+        { id: 1, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 2, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 3, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 4, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 5, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 6, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 7, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
+        { id: 8, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" }
+    ]
 
     return (
         <main>
@@ -113,73 +123,29 @@ export default function ProfileClient() {
                 <table>
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Valor</th>
-                            <th>Descrição</th>
-                            <th>Imagem</th>
+                            <th>Id</th>
+                            <th>Colaborador</th>
+                            <th>Modal</th>
+                            <th>Tipo Chamado</th>
+                            <th>Cliente</th>
+                            <th>Veículo</th>
+                            <th>Problema</th>
+                            <th>Data</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
-                        <tr>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Descrição</td>
-                            <td>Imagem</td>
-                        </tr>
+                        {data.map((log) => (
+                            <tr key={log.id}>
+                                <td>{log.id}</td>
+                                <td>{log.colaborador}</td>
+                                <td>{log.modal}</td>
+                                <td>{log.tipoChamado}</td>
+                                <td>{log.cliente}</td>
+                                <td>{log.veiculo}</td>
+                                <td>{log.problema}</td>
+                                <td>{log.data}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
