@@ -1,0 +1,148 @@
+main{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    gap: 12px;
+}
+
+main .upper-container{
+    flex: 3;
+    display: flex;
+    gap: 12px;
+}
+@media (max-width: 968px){
+    main .upper-container{
+        flex-direction: column;
+    }
+}
+
+main .upper-container aside{
+    flex: 4;
+    background-color: #75d8ff;
+    border-radius: 12px;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    min-width: 350px;
+
+    & > button {
+        margin: 12px auto;
+    }
+}
+@media (max-width: 968px){
+    main .upper-container aside{
+        min-height: 400px;
+        min-width: 0;
+    }
+}
+main .upper-container aside .header-info{
+    display: flex;
+    justify-content: center;
+    padding: 0 8px;
+    height: 45px;
+    background-color: #0005;
+    border-radius: 12px 0 0 0;
+}
+
+main .upper-container aside .client-info{
+    padding: 8px 16px;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+
+    & > h2{
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 auto;
+        text-transform: uppercase;
+        color: #000;
+    }
+}
+main .upper-container aside .client-info .div-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & > h1{
+        font-weight: 600;
+    }
+    & > h2{
+        font-size: 14px;
+        color: #0009;
+    }
+}
+
+main .upper-container aside .vehicle-info{
+    padding: 8px 16px;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    & > h2{
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 auto;
+        text-transform: uppercase;
+        color: #000;
+    }
+}
+main .upper-container aside .vehicle-info .div-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & > h1{
+        font-weight: 600;
+    }
+    & > h2{
+        font-size: 14px;
+        color: #0009;
+    }
+}
+
+
+
+
+main .upper-container .chatbot{
+    flex: 8;
+    background-color: bisque;
+    border-radius: 12px;
+    max-height: calc(100vh - 300px);
+}
+@media (max-width: 968px){
+    main .upper-container .chatbot{
+        min-height: 400px;
+    }
+}
+main .upper-container .chatbot .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+main .lower-container{
+    flex: 1;
+    background-color: #c2c2c2;
+    border-radius: 12px;
+    min-height: 175px;
+    max-height: 175px;
+    overflow-y: auto;
+}
+main .lower-container table{
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+main .lower-container table thead{
+    color: #fff;
+}
+main .lower-container table thead tr th{
+    background-color: #00aeff;
+    border: 1px solid rgb(255, 255, 255);
+}
+main .lower-container table tr td{
+    background-color: rgba(0, 174, 255, 0.116);
+    border: 1px solid #ffffffbd;
+    padding: 0 12px;
+}

@@ -23,7 +23,7 @@ export default function Login() {
                         type="password"
                         placeholder="Digite sua senha"
                     />
-                    <ButtonPrimary redirect="">Entrar</ButtonPrimary>
+                    <ButtonPrimary redirect="/pages/profile/client">Entrar</ButtonPrimary>
                     <ButtonLink redirect="/pages/auth/register/client">Cadastre sua conta</ButtonLink>
                     <ButtonLink redirect="/pages/auth/login/colab">É um colaborador?</ButtonLink>
                 </form>
