@@ -1,4 +1,4 @@
-import { FaBox, FaX, FaCirclePlay, FaCheck, FaPaperPlane, FaInfinity, FaGithub, FaAngleRight, FaHandshakeSimple, FaUsers, FaGear, FaRocket, FaChevronLeft, FaEye, FaEyeSlash, FaBars, FaUserCheck, FaMessage, FaCircleInfo, FaPlus, FaCreditCard, FaUserLock, FaRightFromBracket, FaLinkedinIn } from 'react-icons/fa6';
+import { FaBox, FaX, FaCirclePlay, FaCheck, FaPaperPlane, FaPencil, FaInfinity, FaGithub, FaAngleRight, FaHandshakeSimple, FaUsers, FaGear, FaRocket, FaChevronLeft, FaEye, FaEyeSlash, FaBars, FaUserCheck, FaMessage, FaCircleInfo, FaPlus, FaCreditCard, FaUserLock, FaRightFromBracket, FaLinkedinIn } from 'react-icons/fa6';
 import { MdOutlineSos } from 'react-icons/md';
 
 const iconGallery = {
@@ -27,6 +27,7 @@ const iconGallery = {
     linkedin: (color, size, onClick) => <FaLinkedinIn fill={color} size={size} onClick={onClick} />,
     send: (color, size, onClick) => <FaPaperPlane fill={color} size={size} onClick={onClick} />,
     sos: (color, size, onClick) => <MdOutlineSos fill={color} size={size} onClick={onClick} />,
+    edit: (color, size, onClick) => <FaPencil fill={color} size={size} onClick={onClick} />,
 }
 
 const renderIcon = ({ name, color, size, onClick }) => iconGallery[name](color, size, onClick);
