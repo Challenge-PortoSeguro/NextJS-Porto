@@ -6,21 +6,21 @@ import Input from "@/components/Input/page";
 import Image from "next/image";
 import Logo from "@/assets/images/logo.png";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 
 export default function Login() {
-    const [form , setForm] = useState({
-        email: "",
-        password: ""
+    const schema = yup.object().shape({
+        email: yup.string().email("E-mail inválido").required("Email é obrigatório"),
+        password: yup.string().required("Senha é obrigatória")
+    });
+    const { register, setValue, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
-        console.log(form);
-    }
-
-    const onSubmit = (e) => {
-        console.log(form);
+    const onSubmit = (data) => {
+        console.log(data);
     }
 
     return (
@@ -29,22 +29,21 @@ export default function Login() {
             <div className="login">
                 <Image src={Logo} width={150} height={150} alt="Logo Porto Assistant" />
                 <h1>Login Cliente</h1>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         label="E-mail"
-                        type="email"
                         placeholder="Digite seu e-mail"
-                        onChange={handleChange}
-                        name={"email"}
+                        onChange={(e) => setValue("email", e.target.value)}
+                        error={errors.email?.message}
                     />
                     <Input
                         label="Senha"
                         type="password"
                         placeholder="Digite sua senha"
-                        onChange={handleChange}
-                        name={"password"}
+                        onChange={(e) => setValue("password", e.target.value)}
+                        error={errors.password?.message}
                     />
-                    <ButtonPrimary onClick={onSubmit}>Entrar</ButtonPrimary>
+                    <ButtonPrimary type="submit">Entrar</ButtonPrimary>
                     <ButtonLink redirect="/pages/auth/register/client">Cadastre sua conta</ButtonLink>
                     <ButtonLink redirect="/pages/auth/login/colab">É um colaborador?</ButtonLink>
                 </form>
