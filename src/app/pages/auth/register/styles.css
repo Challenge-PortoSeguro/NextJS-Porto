@@ -69,3 +69,11 @@
     }
 }
 
+.display-none{
+    display: none;
+}
+.display-visible{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
