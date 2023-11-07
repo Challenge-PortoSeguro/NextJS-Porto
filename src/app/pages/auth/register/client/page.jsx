@@ -18,7 +18,28 @@ export default function Register() {
     const [nextStep, setNextStep] = useState(false);
 
     const onSubmit = (data) => {
-        console.log(data);
+        const dataCliente = {
+            genero: { id: parseInt(data.genero) },
+            nome: data.nome,
+            cpf: data.cpf,
+            rg: data.rg,
+            dataNascimento: data.nascimento,
+            cnh: data.cnh,
+            email: data.email,
+            senha: data.senha
+        }
+
+        console.log("Cliente: ", dataCliente);
+        fetch("http://localhost:8081/api/cliente", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(dataCliente)
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log("REGISTRADO: ", data);
+        })
+        // router.push("/pages/profile/client");
     }
 
     return (
@@ -30,7 +51,6 @@ export default function Register() {
                     <div className={!nextStep ? "display-visible" : "display-none"}>
                         <Input
                             label="Nome Completo"
-                            type="text"
                             placeholder="Digite seu nome"
                             onChange={(e) => setValue("nome", e.target.value)}
                             // error={errors.nome?.message}
@@ -68,7 +88,7 @@ export default function Register() {
                             <Select
                                 label="Gênero"
                                 placeholder="Selecione seu gênero"
-                                options={[{ value: "masculino", label: "Masculino" }, { value: "feminino", label: "Feminino" }]}
+                                options={[{ value: "1", label: "Masculino" }, { value: "2", label: "Feminino" }, { value: "3", label: "Prefiro não dizer" }]}
                                 onChange={(e) => setValue("genero", e.target.value)}
                                 // // error={errors.genero?.message}
                             />
@@ -82,7 +102,6 @@ export default function Register() {
                         </div>
                         <Input
                             label="Endereço"
-                            type="text"
                             placeholder="Digite seu endereço"
                             onChange={(e) => setValue("endereco", e.target.value)}
                             // // error={errors.endereco?.message}
@@ -108,7 +127,6 @@ export default function Register() {
                     <div className={nextStep ? "display-visible" : "display-none"}>
                         <Input
                             label="Modelo"
-                            type="text"
                             placeholder="Digite o modelo"
                             onChange={(e) => setValue("modelo", e.target.value)}
                             // // error={errors.modelo?.message}
@@ -116,14 +134,12 @@ export default function Register() {
                         <div className="two-inputs">
                             <Input
                                 label="Placa"
-                                type="text"
                                 placeholder="Digite a placa"
                                 onChange={(e) => setValue("placa", e.target.value)}
                                 // // error={errors.placa?.message}
                             />
                             <Input
                                 label="Renavam"
-                                type="text"
                                 placeholder="Digite o renavam"
                                 onChange={(e) => setValue("renavam", e.target.value)}
                                 // // error={errors.renavam?.message}

@@ -5,12 +5,13 @@ import "../styles.css";
 import Input from "@/components/Input/page";
 import Image from "next/image";
 import Logo from "@/assets/images/logo.png";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+    const router = useRouter();
     const schema = yup.object().shape({
         email: yup.string().email("E-mail inválido").required("Email é obrigatório"),
         password: yup.string().required("Senha é obrigatória")
@@ -20,7 +21,24 @@ export default function Login() {
     });
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
+
+        dataCliente = {
+            email: data.email,
+            senha: data.senha
+        }
+
+        console.log("Cliente: ", dataCliente);
+        // fetch("http://localhost:8081/api/cliente", {
+        //     method: "POST",
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(data)
+        // }).then((response) => {
+        //     return response.json();
+        // }).then((data) => {
+        //     console.log("Logado: ", data);
+        // })
+        // router.push("/pages/profile/client");
     }
 
     return (
