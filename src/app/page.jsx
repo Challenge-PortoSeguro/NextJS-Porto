@@ -3,7 +3,6 @@ import Gif from "../assets/images/gif_AI.gif";
 import Handshake from "../assets/images/handshake.svg";
 import Eficience from "../assets/images/eficience.svg";
 import Innovation from "../assets/images/inovation.svg";
-import Team from "../assets/images/team.png";
 import ButtonPrimary from "../components/Button/variants/primary";
 import ButtonSecondary from "../components/Button/variants/secondary";
 import ButtonLink from "../components/Button/variants/link";
@@ -84,7 +83,7 @@ export default function Home() {
             <p className="card-subtitle">RM552164</p>
             <div className="buttons-card">
               <ButtonLink redirect="https://github.com/CarlosEduardo7700">{icons.github}</ButtonLink>
-              <ButtonLink redirect="https://www.linkedin.com/in/">{icons.linkedin}</ButtonLink>
+              <ButtonLink redirect="https://www.linkedin.com/">{icons.linkedin}</ButtonLink>
             </div>
           </Card>
           <Card>
@@ -111,7 +110,7 @@ export default function Home() {
             <p className="card-subtitle">RM551692</p>
             <div className="buttons-card">
               <ButtonLink redirect="https://github.com/matviniciuus">{icons.github}</ButtonLink>
-              <ButtonLink>{icons.linkedin}</ButtonLink>
+              <ButtonLink redirect="https://www.linkedin.com/">{icons.linkedin}</ButtonLink>
             </div>
           </Card>
           <Card>
