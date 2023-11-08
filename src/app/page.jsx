@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import Gif from "../assets/images/gif_AI.gif";
 import Handshake from "../assets/images/handshake.svg";
@@ -6,7 +8,7 @@ import Innovation from "../assets/images/inovation.svg";
 import ButtonPrimary from "../components/Button/variants/primary";
 import ButtonSecondary from "../components/Button/variants/secondary";
 import ButtonLink from "../components/Button/variants/link";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import renderIcon from "@/utils/iconGallery";
 import "./styles.css";
 import Card from "@/components/Card/page";
@@ -18,6 +20,23 @@ export default function Home() {
     github: renderIcon({ name: "github", size: 18, color: "#030303" }),
     linkedin: renderIcon({ name: "linkedin", size: 18, color: "#0059fd" }),
   }), []);
+
+
+  useEffect(() => {
+    fetch("http://localhost:8081/api/cliente", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json()) // Converter a resposta em JSON
+      .then((data) => {
+        console.log(data); // Tratar os dados aqui
+      })
+      .catch((error) => {
+        console.error("Ocorreu um erro na solicitação:", error);
+      });
+  }, []);
 
   return (
     <main className="home-section">

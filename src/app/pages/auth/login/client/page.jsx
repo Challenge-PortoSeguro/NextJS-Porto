@@ -20,25 +20,33 @@ export default function Login() {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        // console.log(data);
-
-        dataCliente = {
+    const onSubmit = async (data) => {
+        const dataCliente = {
             email: data.email,
-            senha: data.senha
+            password: data.password
         }
+        console.log(dataCliente);
 
-        console.log("Cliente: ", dataCliente);
-        // fetch("http://localhost:8081/api/cliente", {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify(data)
-        // }).then((response) => {
-        //     return response.json();
-        // }).then((data) => {
-        //     console.log("Logado: ", data);
-        // })
-        // router.push("/pages/profile/client");
+        try {
+            const response = await fetch("http://localhost:8081/api/cliente/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify(dataCliente)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log("Logado: ", responseData);
+                // router.push("/pages/profile/client");
+            } else {
+                console.error("Falha no login");
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
+        }
     }
 
     return (
