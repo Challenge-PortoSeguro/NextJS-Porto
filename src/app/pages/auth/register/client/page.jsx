@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from "../yup-schema";
+import { formatDate } from "@/utils/Date";
 
 export default function Register() {
     // const { handleSubmit, setValue, formState: { errors } } = useForm({
@@ -19,18 +20,19 @@ export default function Register() {
 
     const onSubmit = (data) => {
         const dataCliente = {
+            caminhoImagem: "https://github.com/duh0127.png",
             genero: { id: parseInt(data.genero) },
             nome: data.nome,
-            cpf: data.cpf,
-            rg: data.rg,
-            dataNascimento: data.nascimento,
+            cpf: parseInt(data.cpf),
+            rg: parseInt(data.rg),
+            dataNascimento: formatDate(data.nascimento),
             cnh: data.cnh,
             email: data.email,
             senha: data.senha
         }
 
         console.log("Cliente: ", dataCliente);
-        fetch("http://localhost:8081/api/cliente", {
+        fetch("http://localhost:3000/api/cliente/0", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dataCliente)
