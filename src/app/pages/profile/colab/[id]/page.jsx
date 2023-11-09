@@ -1,15 +1,37 @@
+'use client'
 import "../../styles.css";
 import Logo from "@/assets/images/logo.png";
 import Button from "@/components/Button/variants/primary";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import renderIcon from "@/utils/iconGallery";
 
 export default function ProfileColab() {
+  const [colaborador, setColaborador] = useState({});
   const icons = useMemo(() => ({
     play: renderIcon({ name: "play", size: 18, color: "#000" }),
     edit: renderIcon({ name: "edit", size: 18, color: "#ffffff" }),
   }), []);
+
+  const fetchColab = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/colaborador/${params.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Colaborador: ", responseData);
+        setColaborador(responseData);
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro durante a solicitação:", error);
+    }
+  }
 
   const data = [
     { id: 1, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
@@ -21,6 +43,11 @@ export default function ProfileColab() {
     { id: 7, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
     { id: 8, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" }
   ]
+
+  useEffect(() => {
+    localStorage.getItem("id") && fetchColab();
+    !localStorage.getItem("id") && route.push("/");
+  }, []);
 
   return (
     <main>

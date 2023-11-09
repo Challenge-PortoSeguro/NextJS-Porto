@@ -6,8 +6,10 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import renderIcon from "@/utils/iconGallery";
 import { formatTime } from "@/utils/Date";
+import { useRouter } from "next/navigation";
 
 export default function ProfileClient({ params }) {
+    const route = useRouter();
     const [cliente, setCliente] = useState({});
     const icons = useMemo(() => ({
         play: renderIcon({ name: "play", size: 18, color: "#000" }),
@@ -29,15 +31,11 @@ export default function ProfileClient({ params }) {
                 const responseData = await response.json();
                 console.log("Cliente: ", responseData);
                 setCliente(responseData);
-            } else {
-                console.error("Falha no login");
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
     }
-
-
 
     const data = [
         { id: 1, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
@@ -51,7 +49,8 @@ export default function ProfileClient({ params }) {
     ]
 
     useEffect(() => {
-        fetchClient();
+        localStorage.getItem("id") && fetchClient();
+        !localStorage.getItem("id") && route.push("/");
     }, []);
 
     return (

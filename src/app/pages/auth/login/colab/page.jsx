@@ -20,25 +20,33 @@ export default function Login() {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        // console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            const response = await fetch("http://localhost:3000/api/colaborador/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify({ email: data.email, senha: data.password })
+            });
 
-        dataCliente = {
-            email: data.email,
-            senha: data.senha
+            if (response.ok) {
+                const responseData = await response.json();
+
+                if (responseData) {
+                    localStorage.setItem("id", responseData.id);
+                    router.push(`/pages/profile/colab/${parseInt(localStorage.getItem("id"))}`);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2500)
+                }
+            } else {
+                !localStorage.getItem("id") && console.error("Falha no login"); 
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
         }
-
-        console.log("Cliente: ", dataCliente);
-        // fetch("http://localhost:8081/api/cliente", {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify(data)
-        // }).then((response) => {
-        //     return response.json();
-        // }).then((data) => {
-        //     console.log("Logado: ", data);
-        // })
-        // router.push("/pages/profile/colab");
     }
 
     return (

@@ -41,6 +41,9 @@ export default function Login() {
                 if (responseData) {
                     localStorage.setItem("id", responseData.id);
                     router.push(`/pages/profile/client/${parseInt(localStorage.getItem("id"))}`);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2500)
                 }
             } else {
                 !localStorage.getItem("id") && console.error("Falha no login"); 
