@@ -12,8 +12,10 @@ import { useMemo, useEffect } from "react";
 import renderIcon from "@/utils/iconGallery";
 import "./styles.css";
 import Card from "@/components/Card/page";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const route = useRouter();
   const icons = useMemo(() => ({
     play: renderIcon({ name: "play", size: 18, color: "#000" }),
     aboutus: renderIcon({ name: "aboutus", size: 62, color: "#fff" }),
@@ -21,21 +23,15 @@ export default function Home() {
     linkedin: renderIcon({ name: "linkedin", size: 18, color: "#0059fd" }),
   }), []);
 
+  const verifyToken = () => {
+    const token = localStorage.getItem("token");
+    if(!token) {
+      route.push("/");
+    }
+  }
 
   useEffect(() => {
-    fetch("http://localhost:8081/api/cliente", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json()) // Converter a resposta em JSON
-      .then((data) => {
-        console.log(data); // Tratar os dados aqui
-      })
-      .catch((error) => {
-        console.error("Ocorreu um erro na solicitação:", error);
-      });
+    verifyToken();
   }, []);
 
   return (

@@ -1,15 +1,43 @@
-import "../styles.css";
+'use client'
+import "../../styles.css";
 import Logo from "@/assets/images/logo.png";
 import Button from "@/components/Button/variants/primary";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import renderIcon from "@/utils/iconGallery";
+import { formatTime } from "@/utils/Date";
 
-export default function ProfileClient() {
+export default function ProfileClient({ params }) {
+    const [cliente, setCliente] = useState({});
     const icons = useMemo(() => ({
         play: renderIcon({ name: "play", size: 18, color: "#000" }),
         edit: renderIcon({ name: "edit", size: 18, color: "#ffffff" }),
     }), []);
+
+
+    const fetchClient = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/cliente/${params.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log("Cliente: ", responseData);
+                setCliente(responseData);
+            } else {
+                console.error("Falha no login");
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
+        }
+    }
+
+
 
     const data = [
         { id: 1, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" },
@@ -22,6 +50,10 @@ export default function ProfileClient() {
         { id: 8, colaborador: "Rodolfo", modal: "Mercedes-Benz I-3492", tipoChamado: "Problema Elétrico", cliente: "Cliente", veiculo: "Veículo", problema: "Problema", data: "Data" }
     ]
 
+    useEffect(() => {
+        fetchClient();
+    }, []);
+
     return (
         <main>
             <div className="upper-container">
@@ -33,39 +65,39 @@ export default function ProfileClient() {
                         <h2>Cliente</h2>
                         <div className="div-info">
                             <h1>Nome:</h1>
-                            <h2>Cleber</h2>
+                            <h2>{cliente?.cliente?.nome}</h2>
                         </div>
                         <div className="div-info">
                             <h1>Email:</h1>
-                            <h2>meuemail@email.com</h2>
+                            <h2>{cliente?.cliente?.email}</h2>
                         </div>
                         <div className="div-info">
                             <h1>CPF:</h1>
-                            <h2>671.176.690-39</h2>
+                            <h2>{cliente?.cliente?.cpf}</h2>
                         </div>
                         <div className="div-info">
                             <h1>RG:</h1>
-                            <h2>40.453.753-4</h2>
+                            <h2>{cliente?.cliente?.rg}</h2>
                         </div>
                         <div className="div-info">
                             <h1>CNH:</h1>
-                            <h2>63166137796</h2>
+                            <h2>{cliente?.cliente?.cnh}</h2>
                         </div>
                         <div className="div-info">
                             <h1>Nascimento:</h1>
-                            <h2>27/01/2005</h2>
+                            <h2>{formatTime(cliente?.cliente?.dataNascimento)}</h2>
                         </div>
                         <div className="div-info">
                             <h1>Gênero:</h1>
-                            <h2>Masculino</h2>
+                            <h2>{cliente?.cliente?.genero?.id == 1 ? "Masculino" : (cliente?.genero?.id == 2 ? "Feminino" : "Prefiro não dizer")}</h2>
                         </div>
                         <div className="div-info">
                             <h1>Telefone:</h1>
-                            <h2>(82) 92775-3597</h2>
+                            <h2>{cliente?.ddi + " " + cliente?.ddd + " " + cliente?.numero}</h2>
                         </div>
                         <div className="div-info">
                             <h1>Endereço:</h1>
-                            <h2>Rua da minha casa, 999</h2>
+                            <h2>{cliente?.logradouro?.nome + " " + cliente?.numLogradouro}</h2>
                         </div>
                     </div>
                     <div className="vehicle-info">

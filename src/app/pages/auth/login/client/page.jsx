@@ -9,40 +9,41 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import jwt from "jsonwebtoken";
+
+const schema = yup.object().shape({
+    email: yup.string().email("E-mail inválido").required("Email é obrigatório"),
+    password: yup.string().required("Senha é obrigatória")
+});
 
 export default function Login() {
     const router = useRouter();
-    const schema = yup.object().shape({
-        email: yup.string().email("E-mail inválido").required("Email é obrigatório"),
-        password: yup.string().required("Senha é obrigatória")
-    });
+    
     const { register, setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
     const onSubmit = async (data) => {
-        const dataCliente = {
-            email: data.email,
-            password: data.password
-        }
-        console.log(dataCliente);
-
         try {
-            const response = await fetch("http://localhost:8081/api/cliente/login", {
+            const response = await fetch("http://localhost:3000/api/cliente/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                 },
-                body: JSON.stringify(dataCliente)
+                body: JSON.stringify({ email: data.email, senha: data.password })
             });
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log("Logado: ", responseData);
-                // router.push("/pages/profile/client");
+
+                if (responseData) {
+                    localStorage.setItem("id", responseData.id);
+                    router.push(`/pages/profile/client/${parseInt(localStorage.getItem("id"))}`);
+                }
             } else {
-                console.error("Falha no login");
+                !localStorage.getItem("id") && console.error("Falha no login"); 
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);

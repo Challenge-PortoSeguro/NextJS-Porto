@@ -1,4 +1,4 @@
-import "../styles.css";
+import "../../styles.css";
 import Logo from "@/assets/images/logo.png";
 import Button from "@/components/Button/variants/primary";
 import Image from "next/image";
