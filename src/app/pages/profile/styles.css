@@ -21,7 +21,7 @@ main .upper-container aside{
     flex: 4;
     background-color: #75d8ff;
     border-radius: 12px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 112px);
     overflow-y: auto;
     min-width: 350px;
 
@@ -104,9 +104,9 @@ main .upper-container aside .vehicle-info .div-info{
 
 main .upper-container .chatbot{
     flex: 8;
-    background-color: bisque;
+    background-color: rgb(99, 179, 245);
     border-radius: 12px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 112px);
 }
 @media (max-width: 968px){
     main .upper-container .chatbot{
@@ -145,4 +145,13 @@ main .lower-container table tr td{
     background-color: rgba(0, 174, 255, 0.116);
     border: 1px solid #ffffffbd;
     padding: 0 12px;
+}
+
+main .modal_update form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 350px;
+    overflow-y: auto;
 }

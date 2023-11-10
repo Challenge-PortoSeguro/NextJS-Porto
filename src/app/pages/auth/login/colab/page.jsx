@@ -16,7 +16,7 @@ export default function Login() {
         email: yup.string().email("E-mail inválido").required("Email é obrigatório"),
         password: yup.string().required("Senha é obrigatória")
     });
-    const { register, setValue, handleSubmit, formState: { errors } } = useForm({
+    const { setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
