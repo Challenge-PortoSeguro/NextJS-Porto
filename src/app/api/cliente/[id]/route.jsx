@@ -101,7 +101,6 @@ export async function POST(request) {
                     id_cliente: { id_cliente: dataCliente.id_cliente },
                     id_veiculo: { id_veiculo: dataVeiculo.id_veiculo }
                 }
-                console.log("sendData: ", sendData);
             
                 const postVeiculoCliente = await fetch("http://127.0.0.1:8081/api/veiculo-cliente", {
                     method: "POST",

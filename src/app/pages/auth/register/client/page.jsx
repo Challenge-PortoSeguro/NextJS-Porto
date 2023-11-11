@@ -32,10 +32,9 @@ export default function Register() {
             });
 
             if (response.ok) {
-                // route.push("/pages/auth/login/client")
-                console.log("deu certo")
+                route.push("/pages/auth/login/client")
             } else {
-                alert("Erro ao cadastrar o usuário")
+                alert("Erro ao cadastrar o cliente")
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
@@ -112,7 +111,6 @@ export default function Register() {
                         // error={errors.senha?.message}
                         />
                         <ButtonPrimary redirect="" onClick={() => setNextStep(true)}>Continuar</ButtonPrimary>
-                        {/* <ButtonSuccess type="submit">Cadastrar</ButtonSuccess> */}
                         <ButtonLink redirect="/pages/auth/login/client">Já possui uma conta?</ButtonLink>
                     </div>
 
@@ -136,7 +134,7 @@ export default function Register() {
                             <Input
                                 label="Placa"
                                 maxLength={7}
-                                placeholder="Digite a placa"
+                                placeholder="Digite a placa sem traço"
                                 onChange={(e) => setValue("placa_veiculo", e.target.value)}
                             />
                             <Input
@@ -169,8 +167,9 @@ export default function Register() {
                                 onChange={(e) => setValue("tp_eixo", e.target.value)}
                             />
                             <Input
-                                label="Qauntidade Eixos"
+                                label="Quantidade Eixos"
                                 type="number"
+                                maxLength={2}
                                 placeholder="Digite a quantidade de eixos"
                                 onChange={(e) => setValue("qtd_eixos_veiculo", parseInt(e.target.value))}
                             />
