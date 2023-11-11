@@ -32,7 +32,6 @@ export async function POST(request) {
 
     try {
         const data = await request.json();
-
         const dataCliente = {
             cpf_cliente: data.cpf_cliente,
             dt_nasc_cliente: formatDate(data.dt_nasc_cliente),
@@ -43,7 +42,6 @@ export async function POST(request) {
             senha_cliente: data.senha_cliente,
             telefone_cliente: data.telefone_cliente
         }
-        console.log(dataCliente)
 
         const dataMedida = {
             largura: data.largura,
@@ -52,8 +50,7 @@ export async function POST(request) {
             peso: data.peso,
             peso_suportado: data.peso_suportado
         }
-        console.log(dataMedida)
-        
+
         const postCliente = await fetch("http://127.0.0.1:8081/api/cliente", {
             method: "POST",
             headers: {
@@ -71,7 +68,7 @@ export async function POST(request) {
             },
             body: JSON.stringify(dataMedida),
         });
-        
+
         if (postMedida.ok) {
             const postMedidaJson = await postMedida.json();
             const dataVeiculo = {
@@ -86,12 +83,6 @@ export async function POST(request) {
                 tp_chassi: data.tp_chassi,
                 tp_eixo: data.tp_eixo
             };
-            console.log(dataVeiculo);
-
-            const dataVeiculoFilled = {
-                ...dataVeiculo,
-                postMedidaJson
-            }
 
             const postVeiculo = await fetch("http://127.0.0.1:8081/api/veiculo", {
                 method: "POST",
@@ -99,18 +90,48 @@ export async function POST(request) {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                 },
-                body: JSON.stringify(dataVeiculoFilled),
+                body: JSON.stringify(dataVeiculo),
             });
-        }
+            
+            if (postCliente.ok && postVeiculo.ok) {
+                const dataCliente = await postCliente.json();
+                const dataVeiculo = await postVeiculo.json();
 
-        if (postCliente.ok && postMedida.ok) {
-            const data = await postCliente.json();
-            return NextResponse.json(data, { status: postCliente.status });
-        } else {
-            console.error("Falha na solicitação. Status: " + postCliente.status);
-            return NextResponse.error("Falha na solicitação. Status: " + postCliente.status, {
-                status: postCliente.status
-            });
+                const sendData = {
+                    id_cliente: { id_cliente: dataCliente.id_cliente },
+                    id_veiculo: { id_veiculo: dataVeiculo.id_veiculo }
+                }
+                console.log("sendData: ", sendData);
+            
+                const postVeiculoCliente = await fetch("http://127.0.0.1:8081/api/veiculo-cliente", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                    body: JSON.stringify(sendData),
+                });
+            
+                if (postVeiculoCliente.ok) {
+                    return new Response("Veiculo cadastrado no N pra N", { status: postCliente.status });
+                } else {
+                    console.error("Falha na solicitação. Status: " + postVeiculoCliente.status);
+                    return new Response(
+                        "Falha na solicitação. Status: " + postVeiculoCliente.status,
+                        { status: postVeiculoCliente.status }
+                    );
+                }                
+            } 
+
+            if (postCliente.ok && postMedida.ok && postVeiculo.ok) {
+                const data = await postCliente.json();
+                return NextResponse.json(data, { status: postCliente.status });
+            } else {
+                console.error("Falha na solicitação. Status: " + postCliente.status);
+                return NextResponse.error("Falha na solicitação. Status: " + postCliente.status, {
+                    status: postCliente.status
+                });
+            }
         }
     } catch (error) {
         console.error("Ocorreu um erro durante a solicitação:", error);

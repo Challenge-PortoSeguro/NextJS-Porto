@@ -32,8 +32,8 @@ export default function Register() {
             });
 
             if (response.ok) {
-                const responseData = await response.json();
-                route.push("/pages/auth/login/client")
+                // route.push("/pages/auth/login/client")
+                console.log("deu certo")
             } else {
                 alert("Erro ao cadastrar o usuário")
             }
