@@ -16,7 +16,7 @@ export default function Register() {
     //     resolver: yupResolver(schema)
     // });
     const { handleSubmit, setValue } = useForm();
-    const [nextStep, setNextStep] = useState(false);
+    // const [nextStep, setNextStep] = useState(false);
 
     const onSubmit = (data) => {
         const dataCliente = {
@@ -31,16 +31,37 @@ export default function Register() {
             senha: data.senha
         }
 
+        const dataLogradouro = {
+            bairro: { id: 1 },
+            cep: data.cep,
+            nome: data.endereco,
+        }
+
+        const dataEndereco = {
+            cliente: dataCliente,
+            logradouro: dataLogradouro,
+            numLogradouro: parseInt(data.numeroEndereco),
+        }
+
+        const sendData = {
+            ...dataCliente,
+            ...dataEndereco,
+            ...dataLogradouro
+        }
+        console.log("SendData: ", sendData);
+
         console.log("Cliente: ", dataCliente);
-        fetch("http://localhost:3000/api/cliente/0", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dataCliente)
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            console.log("REGISTRADO: ", data);
-        })
+        console.log("Endereço: ", dataEndereco);
+        console.log("Logradouro: ", dataLogradouro);
+        // fetch("http://localhost:3000/api/cliente/0", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(dataCliente)
+        // }).then((response) => {
+        //     return response.json();
+        // }).then((data) => {
+        //     console.log("REGISTRADO: ", data);
+        // })
         // router.push("/pages/profile/client");
     }
 
@@ -48,9 +69,9 @@ export default function Register() {
         <main className="container-register">
             <div className="image" />
             <div className="register">
-                <h1>{!nextStep ? "Cadastro do Cliente" : "Cadastro do Veículo"}</h1>
+                <h1>Cadastro do Cliente</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={!nextStep ? "display-visible" : "display-none"}>
+                    <div className="display-visible">
                         <Input
                             label="Nome Completo"
                             placeholder="Digite seu nome"
@@ -102,12 +123,28 @@ export default function Register() {
                             // // error={errors.telefone?.message}
                             />
                         </div>
-                        <Input
-                            label="Endereço"
-                            placeholder="Digite seu endereço"
-                            onChange={(e) => setValue("endereco", e.target.value)}
-                        // // error={errors.endereco?.message}
-                        />
+                        <div className="two-inputs">
+                            <Input
+                                label="CEP"
+                                type="number"
+                                placeholder="Digite seu CEP"
+                                onChange={(e) => setValue("cep", e.target.value)}
+                            // // error={errors.cep?.message}
+                            />
+                            <Input
+                                label="Endereço"
+                                placeholder="Digite o nome do endereço"
+                                onChange={(e) => setValue("endereco", e.target.value)}
+                            // // error={errors.endereco?.message}
+                            />
+                            <Input
+                                label="Número do Endereço"
+                                type="number"
+                                placeholder="Digite o número do endereço"
+                                onChange={(e) => setValue("numeroEndereco", e.target.value)}
+                            // // error={errors.numeroEndereco?.message}
+                            />
+                        </div>
                         <Input
                             label="E-mail"
                             type="email"
@@ -122,11 +159,12 @@ export default function Register() {
                             onChange={(e) => setValue("senha", e.target.value)}
                         // // error={errors.senha?.message}
                         />
-                        <ButtonPrimary redirect="" onClick={() => setNextStep(true)}>Continuar</ButtonPrimary>
+                        {/* <ButtonPrimary redirect="" onClick={() => setNextStep(true)}>Continuar</ButtonPrimary> */}
+                        <ButtonSuccess type="submit">Cadastrar</ButtonSuccess>
                         <ButtonLink redirect="/pages/auth/login/client">Já possui uma conta?</ButtonLink>
                     </div>
 
-                    <div className={nextStep ? "display-visible" : "display-none"}>
+                    {/* <div className={nextStep ? "display-visible" : "display-none"}>
                         <Input
                             label="Modelo"
                             placeholder="Digite o modelo"
@@ -210,7 +248,7 @@ export default function Register() {
                             <ButtonPrimary onClick={() => setNextStep(false)}>Voltar</ButtonPrimary>
                             <ButtonSuccess type="submit">Cadastrar</ButtonSuccess>
                         </div>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </main>

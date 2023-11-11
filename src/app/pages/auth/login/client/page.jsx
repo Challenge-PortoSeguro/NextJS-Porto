@@ -6,13 +6,22 @@ import Input from "@/components/Input/page";
 import Image from "next/image";
 import Logo from "@/assets/images/logo.png";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+    email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
+    senha: yup.string().required("Campo obrigatório")
+});
 
 export default function Login() {
     const router = useRouter();
-    const [login, setLogin] = useState({ email: "", senha: "" });
+    const { handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
 
-    const onSubmit = async () => {
+    const onSubmit = async (data) => {
         try {
             const response = await fetch("http://localhost:3000/api/cliente/login", {
                 method: "POST",
@@ -20,14 +29,13 @@ export default function Login() {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                 },
-                body: JSON.stringify(login)
+                body: JSON.stringify(data)
             });
 
             if (response.ok) {
                 const responseData = await response.json();
-
                 if (responseData) {
-                    localStorage.setItem("id", responseData.id);
+                    localStorage.setItem("id", responseData.id_cliente);
                     router.push(`/pages/profile/client/${parseInt(localStorage.getItem("id"))}`);
                     setTimeout(() => {
                         window.location.reload();
@@ -47,19 +55,21 @@ export default function Login() {
             <div className="login">
                 <Image src={Logo} width={150} height={150} alt="Logo Porto Assistant" />
                 <h1>Login Cliente</h1>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
-                        onChange={(e) => (setLogin({ ...login, email: e.target.value }))}
+                        onChange={(e) => setValue("email", e.target.value)}
+                        error={errors.email?.message}
                     />
                     <Input
                         label="Senha"
                         type="password"
                         placeholder="Digite sua senha"
-                        onChange={(e) => (setLogin({ ...login, senha: e.target.value }))}
+                        onChange={(e) => setValue("senha", e.target.value)}
+                        error={errors.senha?.message}
                     />
-                    <ButtonPrimary onClick={() => onSubmit()}>Entrar</ButtonPrimary>
+                    <ButtonPrimary type="submit">Entrar</ButtonPrimary>
                     <ButtonLink redirect="/pages/auth/register/client">Cadastre sua conta</ButtonLink>
                     <ButtonLink redirect="/pages/auth/login/colab">É um colaborador?</ButtonLink>
                 </form>

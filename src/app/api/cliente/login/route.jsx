@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function POST(request, response) {
+export async function POST(request) {
     try {
         const { email, senha } = await request.json();
         const apiResponse = await fetch("http://127.0.0.1:8081/api/cliente/login", {
@@ -9,7 +9,7 @@ export async function POST(request, response) {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
             },
-            body: JSON.stringify({ email, senha }),
+            body: JSON.stringify({ email_cliente: email, senha_cliente: senha }),
         });
 
         if (apiResponse.ok) {
