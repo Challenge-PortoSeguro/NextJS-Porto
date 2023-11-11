@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 export async function GET(request, { params }) {
     try {
         const { id } = params;
-        console
         if (id) {
             const responseNtoN = await fetch(`http://127.0.0.1:8081/api/veiculo-cliente/${id}`, {
                 method: "GET",
