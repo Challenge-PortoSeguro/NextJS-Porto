@@ -11,6 +11,7 @@ export default function Input({
   error,
   register,
   maxLength,
+  step,
 }) {
   const handleInput = (e) => {
     if (maxLength && e.target.value.length > maxLength) {
@@ -32,6 +33,7 @@ export default function Input({
         onChange={handleInput}
         value={value}
         min={type == "number" && 0}
+        step={step && step}
         {...register}
       />
       {error && <span className="error">{error}</span>}

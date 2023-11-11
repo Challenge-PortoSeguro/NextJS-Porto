@@ -7,11 +7,13 @@ import ButtonSuccess from "@/components/Button/variants/success";
 import "../styles.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from "../yup-schema";
 import { formatDate } from "@/utils/Date";
 
 export default function Register() {
+    const route = useRouter();
     // const { handleSubmit, setValue, formState: { errors } } = useForm({
     //     resolver: yupResolver(schema)
     // });
@@ -31,32 +33,13 @@ export default function Register() {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData);
-                // if (responseData) {
-                //     localStorage.setItem("id", responseData.id_cliente);
-                //     router.push(`/pages/profile/client/${parseInt(localStorage.getItem("id"))}`);
-                //     setTimeout(() => {
-                //         window.location.reload();
-                //     }, 3000)
-                // }
+                route.push("/pages/auth/login/client")
             } else {
                 alert("Erro ao cadastrar o usuário")
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
-        
-
-        // fetch("http://localhost:3000/api/cliente/0", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(dataCliente)
-        // }).then((response) => {
-        //     return response.json();
-        // }).then((data) => {
-        //     console.log("REGISTRADO: ", data);
-        // })
-        // router.push("/pages/profile/client");
     }
 
     return (
@@ -92,7 +75,7 @@ export default function Register() {
                             <Select
                                 label="Gênero"
                                 placeholder="Selecione seu gênero"
-                                options={[{ value: "1", label: "Masculino" }, { value: "2", label: "Feminino" }, { value: "3", label: "Prefiro não dizer" }]}
+                                options={[{ value: "masculino", label: "Masculino" }, { value: "feminino", label: "Feminino" }, { value: "prefiro não dizer", label: "Prefiro não dizer" }]}
                                 onChange={(e) => setValue("genero_cliente", e.target.value)}
                             // error={errors.genero?.message}
                             />
@@ -143,6 +126,7 @@ export default function Register() {
                             />
                             <Input
                                 label="Ano de Fabricação"
+                                type="number"
                                 placeholder="Digite o ano"
                                 maxLength={4}
                                 onChange={(e) => setValue("ano_veiculo", parseInt(e.target.value))}
@@ -158,8 +142,9 @@ export default function Register() {
                             <Input
                                 label="Renavan"
                                 maxLength={11}
+                                type="number"
                                 placeholder="Digite o renavan"
-                                onChange={(e) => setValue("renavan_veiculo", e.target.value)}
+                                onChange={(e) => setValue("renavan_veiculo", parseInt(e.target.value))}
                             />
                             <Input
                                 label="Nº do Chassi"
@@ -187,7 +172,7 @@ export default function Register() {
                                 label="Qauntidade Eixos"
                                 type="number"
                                 placeholder="Digite a quantidade de eixos"
-                                onChange={(e) => setValue("qtd_eixos_veiculo", e.target.value)}
+                                onChange={(e) => setValue("qtd_eixos_veiculo", parseInt(e.target.value))}
                             />
                         </div>
                         <div className="two-inputs">
@@ -195,19 +180,19 @@ export default function Register() {
                                 label="Altura"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("altura", e.target.value)}
+                                onChange={(e) => setValue("altura", parseInt(e.target.value))}
                             />
                             <Input
                                 label="Largura"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("largura", e.target.value)}
+                                onChange={(e) => setValue("largura", parseInt(e.target.value))}
                             />
                             <Input
                                 label="Comprimento"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("comprimento", e.target.value)}
+                                onChange={(e) => setValue("comprimento", parseInt(e.target.value))}
                             />
                         </div>
                         <div className="two-inputs">
@@ -215,13 +200,13 @@ export default function Register() {
                                 label="Peso"
                                 type="number"
                                 placeholder="(kg)"
-                                onChange={(e) => setValue("peso", e.target.value)}
+                                onChange={(e) => setValue("peso", parseInt(e.target.value))}
                             />
                             <Input
                                 label="Peso Suportado"
                                 type="number"
                                 placeholder="(kg)"
-                                onChange={(e) => setValue("peso_suportado", e.target.value)}
+                                onChange={(e) => setValue("peso_suportado", parseInt(e.target.value))}
                             />
                         </div>
                         <div className="div-buttons">

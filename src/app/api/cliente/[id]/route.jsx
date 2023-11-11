@@ -23,6 +23,13 @@ export async function GET(request, { params }) {
 
 
 export async function POST(request) {
+
+    function generateRandomApoliceVeiculo() {
+        const min = 10000000000;
+        const max = 99999999999;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     try {
         const data = await request.json();
 
@@ -46,21 +53,7 @@ export async function POST(request) {
             peso_suportado: data.peso_suportado
         }
         console.log(dataMedida)
-
-        const dataVeiculo = {
-            id_medida: 12,
-            apolice_veiculo: 123,
-            modelo_veiculo: data.modelo_veiculo,
-            placa_veiculo: data.placa_veiculo,
-            ano_veiculo: data.ano_veiculo,
-            qtd_eixos_veiculo: data.qtd_eixos_veiculo,
-            renavan_veiculo: data.renavan_veiculo,
-            nr_chassi: data.nr_chassi,
-            tp_chassi: data.tp_chassi,
-            tp_eixo: data.tp_eixo
-        }
-        console.log(dataVeiculo)
-
+        
         const postCliente = await fetch("http://127.0.0.1:8081/api/cliente", {
             method: "POST",
             headers: {
@@ -77,24 +70,40 @@ export async function POST(request) {
                 "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify(dataMedida),
-        })
-        const postMedidaJson = await postMedida.json();
+        });
+        
+        if (postMedida.ok) {
+            const postMedidaJson = await postMedida.json();
+            const dataVeiculo = {
+                id_medida: { id: postMedidaJson.id },
+                apolice_veiculo: generateRandomApoliceVeiculo(),
+                modelo_veiculo: data.modelo_veiculo,
+                placa_veiculo: data.placa_veiculo,
+                ano_veiculo: data.ano_veiculo,
+                qtd_eixos_veiculo: data.qtd_eixos_veiculo,
+                renavan_veiculo: data.renavan_veiculo,
+                nr_chassi: data.nr_chassi,
+                tp_chassi: data.tp_chassi,
+                tp_eixo: data.tp_eixo
+            };
+            console.log(dataVeiculo);
 
-        const dataVeiculoFilled = {
-            ...dataVeiculo,
-            postMedidaJson
+            const dataVeiculoFilled = {
+                ...dataVeiculo,
+                postMedidaJson
+            }
+
+            const postVeiculo = await fetch("http://127.0.0.1:8081/api/veiculo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify(dataVeiculoFilled),
+            });
         }
 
-        const postVeiculo = await fetch("http://127.0.0.1:8081/api/veiculo", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-            body: JSON.stringify(dataVeiculoFilled),
-        })
-
-        if (postCliente.ok && postMedida.ok && postVeiculo.ok) {
+        if (postCliente.ok && postMedida.ok) {
             const data = await postCliente.json();
             return NextResponse.json(data, { status: postCliente.status });
         } else {
