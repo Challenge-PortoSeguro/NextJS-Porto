@@ -24,7 +24,6 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
     try {
         const { id } = params;
-        console.log(id)
         const data = await request.json();
         if (id) {
             const responseNtoN = await fetch(`http://127.0.0.1:8081/api/modal/${id}`, {

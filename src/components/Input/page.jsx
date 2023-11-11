@@ -31,6 +31,7 @@ export default function Input({
         placeholder={placeholder}
         onChange={handleInput}
         value={value}
+        min={type == "number" && 0}
         {...register}
       />
       {error && <span className="error">{error}</span>}

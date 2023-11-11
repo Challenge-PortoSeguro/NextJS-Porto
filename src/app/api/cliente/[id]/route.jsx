@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/Date";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
@@ -23,24 +24,83 @@ export async function GET(request, { params }) {
 
 export async function POST(request) {
     try {
-        const body = await request.json();
-        console.log("Body: ", body);
-        // const apiResponse = await fetch("http://127.0.0.1:8081/api/cliente", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Access-Control-Allow-Origin": "*",
-        //     },
-        //     body: JSON.stringify(body),
-        // });
+        const data = await request.json();
 
-        if (apiResponse.ok) {
-            const data = await apiResponse.json();
-            return NextResponse.json(data, { status: apiResponse.status });
+        const dataCliente = {
+            cpf_cliente: data.cpf_cliente,
+            dt_nasc_cliente: formatDate(data.dt_nasc_cliente),
+            email_cliente: data.email_cliente,
+            endereco_cliente: data.endereco_cliente,
+            genero_cliente: data.genero_cliente,
+            nm_cliente: data.nm_cliente,
+            senha_cliente: data.senha_cliente,
+            telefone_cliente: data.telefone_cliente
+        }
+        console.log(dataCliente)
+
+        const dataMedida = {
+            largura: data.largura,
+            altura: data.altura,
+            comprimento: data.comprimento,
+            peso: data.peso,
+            peso_suportado: data.peso_suportado
+        }
+        console.log(dataMedida)
+
+        const dataVeiculo = {
+            id_medida: 12,
+            apolice_veiculo: 123,
+            modelo_veiculo: data.modelo_veiculo,
+            placa_veiculo: data.placa_veiculo,
+            ano_veiculo: data.ano_veiculo,
+            qtd_eixos_veiculo: data.qtd_eixos_veiculo,
+            renavan_veiculo: data.renavan_veiculo,
+            nr_chassi: data.nr_chassi,
+            tp_chassi: data.tp_chassi,
+            tp_eixo: data.tp_eixo
+        }
+        console.log(dataVeiculo)
+
+        const postCliente = await fetch("http://127.0.0.1:8081/api/cliente", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(dataCliente),
+        });
+
+        const postMedida = await fetch("http://127.0.0.1:8081/api/medida", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(dataMedida),
+        })
+        const postMedidaJson = await postMedida.json();
+
+        const dataVeiculoFilled = {
+            ...dataVeiculo,
+            postMedidaJson
+        }
+
+        const postVeiculo = await fetch("http://127.0.0.1:8081/api/veiculo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(dataVeiculoFilled),
+        })
+
+        if (postCliente.ok && postMedida.ok && postVeiculo.ok) {
+            const data = await postCliente.json();
+            return NextResponse.json(data, { status: postCliente.status });
         } else {
-            console.error("Falha na solicitação. Status: " + apiResponse.status);
-            return NextResponse.error("Falha na solicitação. Status: " + apiResponse.status, {
-                status: apiResponse.status
+            console.error("Falha na solicitação. Status: " + postCliente.status);
+            return NextResponse.error("Falha na solicitação. Status: " + postCliente.status, {
+                status: postCliente.status
             });
         }
     } catch (error) {
