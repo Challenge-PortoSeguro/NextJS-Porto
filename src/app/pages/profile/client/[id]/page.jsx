@@ -94,16 +94,16 @@ export default function ProfileClient({ params }) {
     }
 
     const updateVehicle = async (data) => {
-        if(!data.ano_veiculo) data.ano_veiculo = veiculos.ano_veiculo;
-        if(!data.apolice_veiculo) data.apolice_veiculo = veiculos.apolice_veiculo;
+        if (!data.ano_veiculo) data.ano_veiculo = veiculos.ano_veiculo;
+        if (!data.apolice_veiculo) data.apolice_veiculo = veiculos.apolice_veiculo;
         data.id_medida = { id: veiculos.id_medida.id };
-        if(!data.modelo_veiculo) data.modelo_veiculo = veiculos.modelo_veiculo;
-        if(!data.nr_chassi) data.nr_chassi = veiculos.nr_chassi;
-        if(!data.placa_veiculo) data.placa_veiculo = veiculos.placa_veiculo;
-        if(!data.qtd_eixos_veiculo) data.qtd_eixos_veiculo = veiculos.qtd_eixos_veiculo;
-        if(!data.renavan_veiculo) data.renavan_veiculo = veiculos.renavan_veiculo;
-        if(!data.tp_chassi) data.tp_chassi = veiculos.tp_chassi;
-        if(!data.tp_eixo) data.tp_eixo = veiculos.tp_eixo;
+        if (!data.modelo_veiculo) data.modelo_veiculo = veiculos.modelo_veiculo;
+        if (!data.nr_chassi) data.nr_chassi = veiculos.nr_chassi;
+        if (!data.placa_veiculo) data.placa_veiculo = veiculos.placa_veiculo;
+        if (!data.qtd_eixos_veiculo) data.qtd_eixos_veiculo = veiculos.qtd_eixos_veiculo;
+        if (!data.renavan_veiculo) data.renavan_veiculo = veiculos.renavan_veiculo;
+        if (!data.tp_chassi) data.tp_chassi = veiculos.tp_chassi;
+        if (!data.tp_eixo) data.tp_eixo = veiculos.tp_eixo;
 
         console.log(data);
         try {
@@ -270,7 +270,7 @@ export default function ProfileClient({ params }) {
                             <Input
                                 label="Ano do Veículo"
                                 type="number"
-                                maxLength={4} 
+                                maxLength={4}
                                 placeholder="Digite seu novo ano do veículo"
                                 onChange={(e) => setValue("ano_veiculo", e.target.value)}
                             />
