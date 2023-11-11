@@ -32,76 +32,67 @@ export default function Register() {
                             label="Nome Completo"
                             type="text"
                             placeholder="Digite seu nome"
-                            onChange={(e) => setValue("nome", e.target.value)}
-                            // error={errors.nome?.message}
+                            onChange={(e) => setValue("nm_colab", e.target.value)}
+                        // error={errors.nome?.message}
                         />
                         <div className="two-inputs">
                             <Input
                                 label="CPF"
                                 type="number"
+                                maxLength={11}
                                 placeholder="Digite seu CPF"
-                                onChange={(e) => setValue("cpf", e.target.value)}
-                                // // error={errors.cpf?.message}
-                            />
-                            <Input
-                                label="RG"
-                                type="number"
-                                placeholder="Digite seu RG"
-                                onChange={(e) => setValue("rg", e.target.value)}
-                                // // error={errors.rg?.message}
-                            />
-                            <Input
-                                label="CNH"
-                                type="number"
-                                placeholder="Digite sua CNH"
-                                onChange={(e) => setValue("cnh", e.target.value)}
-                                // // error={errors.cnh?.message}
+                                onChange={(e) => setValue("cpf_colab", parseInt(e.target.value))}
+                            // // error={errors.cpf?.message}
                             />
                         </div>
                         <div className="two-inputs">
                             <Input
                                 label="Nascimento"
                                 type="date"
-                                onChange={(e) => setValue("nascimento", e.target.value)}
-                                // // error={errors.nascimento?.message}
+                                onChange={(e) => setValue("dt_nasc_colab", e.target.value)}
+                            // // error={errors.nascimento?.message}
                             />
                             <Select
                                 label="Gênero"
                                 placeholder="Selecione seu gênero"
                                 options={[{ value: "masculino", label: "Masculino" }, { value: "feminino", label: "Feminino" }]}
-                                onChange={(e) => setValue("genero", e.target.value)}
-                                // // error={errors.genero?.message}
+                                onChange={(e) => setValue("genero_colab", e.target.value)}
+                            // // error={errors.genero?.message}
                             />
                             <Input
                                 label="Telefone"
                                 type="tel"
+                                maxLength={11}
                                 placeholder="Digite seu telefone"
-                                onChange={(e) => setValue("telefone", e.target.value)}
-                                // // error={errors.telefone?.message}
+                                onChange={(e) => setValue("tel_colab", e.target.value)}
+                            // // error={errors.telefone?.message}
                             />
                         </div>
                         <Input
                             label="Endereço"
                             type="text"
+                            maxLength={80}
                             placeholder="Digite seu endereço"
-                            onChange={(e) => setValue("endereco", e.target.value)}
-                            // // error={errors.endereco?.message}
+                            onChange={(e) => setValue("endereco_colab", e.target.value)}
+                        // // error={errors.endereco?.message}
                         />
                         <Input
                             label="E-mail"
                             type="email"
+                            maxLength={50}
                             placeholder="Digite seu e-mail"
-                            onChange={(e) => setValue("email", e.target.value)}
-                            // // error={errors.email?.message}
+                            onChange={(e) => setValue("email_colab", e.target.value)}
+                        // // error={errors.email?.message}
                         />
                         <Input
                             label="Senha"
                             type="password"
+                            maxLength={250}
                             placeholder="Digite sua senha"
-                            onChange={(e) => setValue("senha", e.target.value)}
-                            // // error={errors.senha?.message}
+                            onChange={(e) => setValue("senha_colab", e.target.value)}
+                        // // error={errors.senha?.message}
                         />
-                        <ButtonPrimary redirect="" onClick={() => setNextStep(true)}>Continuar</ButtonPrimary>
+                        <ButtonPrimary onClick={() => setNextStep(true)}>Continuar</ButtonPrimary>
                         <ButtonLink redirect="/pages/auth/login/colab">Já possui uma conta?</ButtonLink>
                     </div>
 
@@ -110,73 +101,65 @@ export default function Register() {
                             label="Modelo"
                             type="text"
                             placeholder="Digite o modelo"
-                            onChange={(e) => setValue("modelo", e.target.value)}
-                            // // error={errors.modelo?.message}
+                            onChange={(e) => setValue("modelo_modal", e.target.value)}
+                        // // error={errors.modelo?.message}
                         />
                         <div className="two-inputs">
                             <Input
                                 label="Placa"
                                 type="text"
+                                maxLength={7}
                                 placeholder="Digite a placa"
-                                onChange={(e) => setValue("placa", e.target.value)}
-                                // // error={errors.placa?.message}
+                                onChange={(e) => setValue("placa_modal", e.target.value)}
+                            // // error={errors.placa?.message}
                             />
                             <Input
-                                label="Renavam"
+                                label="Marca"
                                 type="text"
-                                placeholder="Digite o renavam"
-                                onChange={(e) => setValue("renavam", e.target.value)}
-                                // // error={errors.renavam?.message}
-                            />
-                            <Input
-                                label="Nº do Chassi"
-                                placeholder="Digite o Nº do chassi"
-                                onChange={(e) => setValue("numChassi", e.target.value)}
-                                // // error={errors.numChassi?.message}
+                                maxLength={20}
+                                placeholder="Digite a marca"
+                                onChange={(e) => setValue("marca_modal", e.target.value)}
+                            // // error={errors.placa?.message}
                             />
                         </div>
-                        <Select
-                            label="Tipo Chassi"
-                            placeholder="Selecione o tipo do chassi"
-                            options={[{ value: "longarina", label: "Longarina" }, { value: "monobloco", label: "Monobloco" }]}
-                            onChange={(e) => setValue("tipoChassi", e.target.value)}
-                            // // error={errors.tipoChassi?.message}
-                        />
-                        <Select
-                            label="Tipo Eixo"
-                            placeholder="Selecione o tipo do eixo"
-                            options={[{ value: "simples", label: "Simples" }, { value: "duplo", label: "Duplo" }]}
-                            onChange={(e) => setValue("tipoEixo", e.target.value)}
-                            // // error={errors.tipoEixo?.message}
-                        />
-                        <Input 
-                            label="Nº Eixo" 
-                            type="text" 
-                            placeholder="Digite o Nº do eixo"
-                            onChange={(e) => setValue("numEixo", e.target.value)}
+                        <div className="two-inputs">
+                            <Input
+                                label="Ano de Fabricação"
+                                type="number"
+                                maxLength={4}
+                                placeholder="Digite o ano de fabricação"
+                                onChange={(e) => setValue("ano_modal", parseInt(e.target.value))}
                             // // error={errors.numEixo?.message}
-                        />
+                            />
+                            <Input
+                                label="Tipo do modal"
+                                type="text"
+                                placeholder="Digite o tipo do modal"
+                                onChange={(e) => setValue("tipo_modal", e.target.value)}
+                            // // error={errors.numEixo?.message}
+                            />
+                        </div>
                         <div className="two-inputs">
                             <Input
                                 label="Altura"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("altura", e.target.value)}
-                                // // error={errors.altura?.message}
+                                onChange={(e) => setValue("altura", parseInt(e.target.value))}
+                            // // error={errors.altura?.message}
                             />
                             <Input
                                 label="Largura"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("largura", e.target.value)}
-                                // // error={errors.largura?.message}
+                                onChange={(e) => setValue("largura", parseInt(e.target.value))}
+                            // // error={errors.largura?.message}
                             />
                             <Input
                                 label="Comprimento"
                                 type="number"
                                 placeholder="(m)"
-                                onChange={(e) => setValue("comprimento", e.target.value)}
-                                // // error={errors.comprimento?.message}
+                                onChange={(e) => setValue("comprimento", parseInt(e.target.value))}
+                            // // error={errors.comprimento?.message}
                             />
                         </div>
                         <div className="two-inputs">
@@ -184,15 +167,15 @@ export default function Register() {
                                 label="Peso"
                                 type="number"
                                 placeholder="(kg)"
-                                onChange={(e) => setValue("peso", e.target.value)}
-                                // // error={errors.peso?.message}
+                                onChange={(e) => setValue("peso", parseInt(e.target.value))}
+                            // // error={errors.peso?.message}
                             />
                             <Input
                                 label="Peso Suportado"
                                 type="number"
                                 placeholder="(kg)"
-                                onChange={(e) => setValue("pesoSuportado", e.target.value)}
-                                // // error={errors.pesoSuportado?.message}
+                                onChange={(e) => setValue("peso_suportado", parseInt(e.target.value))}
+                            // // error={errors.pesoSuportado?.message}
                             />
                         </div>
                         <div className="div-buttons">
