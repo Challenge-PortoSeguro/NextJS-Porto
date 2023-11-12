@@ -19,6 +19,21 @@ export default function Register() {
 
     const onSubmit = (data) => {
         console.log(data);
+        try {
+            fetch('http://localhost:3000/api/colaborador/0', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert("Cadastro realizado com sucesso!");
+                } else {
+                    alert("Erro ao cadastrar!");
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
