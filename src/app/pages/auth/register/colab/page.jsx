@@ -7,6 +7,7 @@ import ButtonSuccess from "@/components/Button/variants/success";
 import "../styles.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from "../yup-schema";
 
@@ -14,11 +15,33 @@ export default function Register() {
     // const { handleSubmit, setValue, formState: { errors } } = useForm({
     //     resolver: yupResolver(schema)
     // });
+    const route = useRouter();
     const { handleSubmit, setValue } = useForm();
     const [nextStep, setNextStep] = useState(false);
 
     const onSubmit = (data) => {
-        console.log(data);
+        if(!data 
+            || !data.nm_colab 
+            || !data.cpf_colab 
+            || !data.genero_colab 
+            || !data.tel_colab 
+            || !data.dt_nasc_colab 
+            || !data.endereco_colab 
+            || !data.email_colab 
+            || !data.senha_colab 
+            || !data.modelo_modal 
+            || !data.placa_modal 
+            || !data.marca_modal 
+            || !data.ano_modal 
+            || !data.tipo_modal 
+            || !data.altura 
+            || !data.largura 
+            || !data.comprimento 
+            || !data.peso 
+            || !data.peso_suportado) {
+            alert("Preencha todos os campos!");
+            return;
+        }
         try {
             fetch('http://localhost:3000/api/colaborador/0', {
                 method: 'POST',
@@ -26,7 +49,7 @@ export default function Register() {
                 body: JSON.stringify(data)
             }).then(response => {
                 if (response.ok) {
-                    alert("Cadastro realizado com sucesso!");
+                    route.push("/pages/auth/login/colab");
                 } else {
                     alert("Erro ao cadastrar!");
                 }
