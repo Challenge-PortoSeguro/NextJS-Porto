@@ -129,6 +129,15 @@ export default function Home() {
             </div>
           </Card>
           <Card>
+            <Image className="card-image" src="https://github.com/PedroFigueiredo7.png" height={150} width={150} alt="Foto Mateus Vinícius" />
+            <h1 className="card-title">Pedro Figueiredo</h1>
+            <p className="card-subtitle">RM552000</p>
+            <div className="buttons-card">
+              <ButtonLink redirect="https://github.com/PedroFigueiredo7">{icons.github}</ButtonLink>
+              <ButtonLink redirect="https://www.linkedin.com/">{icons.linkedin}</ButtonLink>
+            </div>
+          </Card>
+          <Card>
             <Image className="card-image" src="https://github.com/VitorMiranda11.png" height={150} width={150} alt="Foto Vitor Miranda" />
             <h1 className="card-title">Vitor Miranda</h1>
             <p className="card-subtitle">RM551451</p>
