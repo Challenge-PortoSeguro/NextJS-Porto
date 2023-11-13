@@ -19,9 +19,10 @@ main .upper-container{
 
 main .upper-container aside{
     flex: 4;
-    background-color: #75d8ff;
+    background-color: rgb(205, 225, 255);
     border-radius: 12px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 112px);
+    height: calc(100vh - 112px);
     overflow-y: auto;
     min-width: 350px;
 
@@ -33,6 +34,8 @@ main .upper-container aside{
     main .upper-container aside{
         min-height: 400px;
         min-width: 0;
+        max-height: none;
+        height: auto;
     }
 }
 main .upper-container aside .header-info{
@@ -40,7 +43,7 @@ main .upper-container aside .header-info{
     justify-content: center;
     padding: 0 8px;
     height: 45px;
-    background-color: #0005;
+    background-color: rgba(0, 0, 0, 0.126);
     border-radius: 12px 0 0 0;
 }
 
@@ -77,6 +80,7 @@ main .upper-container aside .vehicle-info{
     display: flex;
     gap: 12px;
     flex-direction: column;
+
     & > h2{
         font-size: 24px;
         font-weight: 600;
@@ -104,13 +108,14 @@ main .upper-container aside .vehicle-info .div-info{
 
 main .upper-container .chatbot{
     flex: 8;
-    background-color: bisque;
+    background-color: rgb(99, 179, 245);
     border-radius: 12px;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 112px);
 }
 @media (max-width: 968px){
     main .upper-container .chatbot{
         min-height: 400px;
+        max-height: none;
     }
 }
 main .upper-container .chatbot .container{
@@ -118,31 +123,282 @@ main .upper-container .chatbot .container{
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-color: rgb(99, 179, 245);
+    color: #fff;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    border-radius: 12px;
+    padding: 32px;
+
+    & > form{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 8px;
+    }
 }
 
+main .upper-container .chatbot .container .infos{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    & > h1{
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fff;
+    };
 
-main .lower-container{
-    flex: 1;
-    background-color: #c2c2c2;
-    border-radius: 12px;
-    min-height: 175px;
-    max-height: 175px;
+    & > h2 {
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+    };
+}
+@media (max-width: 500px){
+    main .upper-container .chatbot .container .infos{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+main .upper-container .chatbot .container .divButton{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+@media (max-width: 500px){
+    main .upper-container .chatbot .container .divButton{
+        flex-direction: column;
+    }
+}
+
+main .modal_update form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 350px;
     overflow-y: auto;
 }
-main .lower-container table{
+
+main .modal_confirmar{
+    background-color: rgb(99, 179, 245);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
     height: 100%;
-    border-collapse: collapse;
+    border-radius: 12px;
+    padding: 48px;
 }
-main .lower-container table thead{
+
+.title_vehicle_step1{
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container_info_step1{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+}
+@media (max-width: 500px){
+    .container_info_step1{
+        padding: 0;
+    }
+}
+
+.title_medidas_step1{
+    font-size: 18px;
+    margin-top: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container_info_step3{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    border: 1px solid #ffffff3f;
+    border-radius: 8px;
+}
+@media (max-width: 500px){
+    .container_info_step1{
+        padding: 0;
+    }
+}
+
+
+.form_chamada{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+}
+@media (max-width: 600px){
+    .form_chamada{
+        width: 100%;
+        padding: 0;
+    }
+}
+
+
+
+.lower-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.lower-container table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+}
+
+.lower-container table thead{
+    background-color: rgb(70, 127, 174);
     color: #fff;
 }
-main .lower-container table thead tr th{
-    background-color: #00aeff;
-    border: 1px solid rgb(255, 255, 255);
+
+.lower-container table thead tr th{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000002f;
 }
-main .lower-container table tr td{
-    background-color: rgba(0, 174, 255, 0.116);
-    border: 1px solid #ffffffbd;
-    padding: 0 12px;
+
+.lower-container table tbody tr td{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000001f;
+}
+
+@media (max-width: 830px) {
+    .lower-container table thead,
+    .lower-container table tbody,
+    .lower-container table tr,
+    .lower-container table th,
+    .lower-container table td {
+        display: block;
+        width: 100%;
+    }
+
+    .lower-container table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .lower-container table tbody tr {
+        border: 1px solid #0081f2;
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+
+    .lower-container table td {
+        border: none;
+        border-bottom: 1px solid #0000001f;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .lower-container table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+}
+
+
+
+.lower-container-colab{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.lower-container-colab table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+}
+
+.lower-container-colab table thead{
+    background-color: rgb(70, 127, 174);
+    color: #fff;
+}
+
+.lower-container-colab table thead tr th{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000002f;
+}
+
+.lower-container-colab table tbody tr td{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000001f;
+}
+
+@media (max-width: 830px) {
+    .lower-container-colab table thead,
+    .lower-container-colab table tbody,
+    .lower-container-colab table tr,
+    .lower-container-colab table th,
+    .lower-container-colab table td {
+        display: block;
+        width: 100%;
+    }
+
+    .lower-container-colab table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .lower-container-colab table tbody tr {
+        border: 1px solid #0000001f;
+        margin-bottom: 12px;
+    }
+
+    .lower-container-colab table td {
+        border: none;
+        border-bottom: 1px solid #0000001f;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .lower-container-colab table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
 }

@@ -73,3 +73,15 @@
     gap: 16px;
 }
 
+.error{
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 8px;
+}
+.success{
+    color: green;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 8px;
+}

@@ -1,4 +1,4 @@
-import { FaBox, FaX, FaCirclePlay, FaCheck, FaPaperPlane, FaPencil, FaInfinity, FaGithub, FaAngleRight, FaHandshakeSimple, FaUsers, FaGear, FaRocket, FaChevronLeft, FaEye, FaEyeSlash, FaBars, FaUserCheck, FaMessage, FaCircleInfo, FaPlus, FaCreditCard, FaUserLock, FaRightFromBracket, FaLinkedinIn } from 'react-icons/fa6';
+import { FaBox, FaX, FaCirclePlay, FaCheck, FaPaperPlane, FaTruckArrowRight, FaPencil, FaInfinity, FaGithub, FaHandshakeSimple, FaUsers, FaGear, FaRocket, FaChevronLeft, FaEye, FaEyeSlash, FaBars, FaUserCheck, FaMessage, FaCircleInfo, FaPlus, FaCreditCard, FaUserLock, FaRightFromBracket, FaLinkedinIn, FaChevronRight } from 'react-icons/fa6';
 import { MdOutlineSos } from 'react-icons/md';
 
 const iconGallery = {
@@ -21,13 +21,14 @@ const iconGallery = {
     contact: (color, size, onClick) => <FaMessage fill={color} size={size} onClick={onClick} />,
     close: (color, size, onClick) => <FaX fill={color} size={size} onClick={onClick} />,
     play: (color, size, onClick) => <FaCirclePlay fill={color} size={size} onClick={onClick} />,
-    next: (color, size, onClick) => <FaAngleRight fill={color} size={size} onClick={onClick} />,
+    next: (color, size, onClick) => <FaChevronRight fill={color} size={size} onClick={onClick} />,
     check: (color, size, onClick) => <FaCheck fill={color} size={size} onClick={onClick} />,
     github: (color, size, onClick) => <FaGithub fill={color} size={size} onClick={onClick} />,
     linkedin: (color, size, onClick) => <FaLinkedinIn fill={color} size={size} onClick={onClick} />,
     send: (color, size, onClick) => <FaPaperPlane fill={color} size={size} onClick={onClick} />,
     sos: (color, size, onClick) => <MdOutlineSos fill={color} size={size} onClick={onClick} />,
     edit: (color, size, onClick) => <FaPencil fill={color} size={size} onClick={onClick} />,
+    guincho: (color, size, onClick) => <FaTruckArrowRight fill={color} size={size} onClick={onClick} />,
 }
 
 const renderIcon = ({ name, color, size, onClick }) => iconGallery[name](color, size, onClick);
