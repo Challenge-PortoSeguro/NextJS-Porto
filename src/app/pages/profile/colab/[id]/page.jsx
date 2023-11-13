@@ -3,7 +3,7 @@ import "../../styles.css";
 import Logo from "@/assets/images/logo.png";
 import Button from "@/components/Button/variants/primary";
 import Image from "next/image";
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useState, useCallback } from "react";
 import renderIcon from "@/utils/iconGallery";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils/Date";
@@ -19,6 +19,7 @@ export default function ProfileColab({ params }) {
   const [isOpenColab, setIsOpenColab] = useState(false);
   const [colaborador, setColaborador] = useState({});
   const [modals, setModals] = useState([]);
+  const [chamadas, setChamadas] = useState([]);
   const icons = useMemo(() => ({
     play: renderIcon({ name: "play", size: 18, color: "#000" }),
     edit: renderIcon({ name: "edit", size: 18, color: "#ffffff" }),
@@ -62,6 +63,26 @@ export default function ProfileColab({ params }) {
     }
   }
 
+  const fetchChamadas = useCallback(async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/chamada`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        setChamadas(responseData);
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro durante a solicitação:", error);
+    }
+  }, []);
+
 
   const updateColaborador = async (data) => {
     if (!data.cpf_colab) data.cpf_colab = colaborador.cpf_colab;
@@ -95,32 +116,32 @@ export default function ProfileColab({ params }) {
   }
 
   const updateModal = async (data) => {
-    if(!data.modelo_modal) data.modelo_modal = modals.modelo_modal;
-    if(!data.placa_modal) data.placa_modal = modals.placa_modal;
-    if(!data.marca_modal) data.marca_modal = modals.marca_modal;
-    if(!data.ano_modal) data.ano_modal = modals.ano_modal;
-    if(!data.tipo_modal) data.tipo_modal = modals.tipo_modal;
+    if (!data.modelo_modal) data.modelo_modal = modals.modelo_modal;
+    if (!data.placa_modal) data.placa_modal = modals.placa_modal;
+    if (!data.marca_modal) data.marca_modal = modals.marca_modal;
+    if (!data.ano_modal) data.ano_modal = modals.ano_modal;
+    if (!data.tipo_modal) data.tipo_modal = modals.tipo_modal;
     data.id_medida = { id: modals.id_medida.id }
     console.log(data);
 
     try {
       const response = await fetch(`http://localhost:3000/api/colaborador/modal/${modals?.id_modal}`, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify(data),
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-          fetchModals();
-          setIsOpenModal(false);
+        fetchModals();
+        setIsOpenModal(false);
       }
-  } catch (error) {
+    } catch (error) {
       console.error("Ocorreu um erro durante a solicitação:", error);
       alert("Ocorreu um erro durante a solicitação:", error);
-  }
+    }
   }
 
 
@@ -129,6 +150,7 @@ export default function ProfileColab({ params }) {
     if (params?.id) {
       fetchColaborador();
       fetchModals();
+      fetchChamadas();
     }
   }, []);
 
@@ -191,7 +213,33 @@ export default function ProfileColab({ params }) {
         </aside>
         <div className="chatbot">
           <div className="container">
-            <Button>Iniciar ChatBot</Button>
+            <h1>Chamadas</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Descrição</th>
+                  <th>Local</th>
+                  <th>Destino</th>
+                  <th>Guincho</th>
+                  <th>Cliente</th>
+                  <th>Veículo</th>
+                  <th>Data Início</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chamadas.map((chamada) => (
+                  <tr key={chamada.id_chamada}>
+                    <td>{chamada.ds_prob_chamada}</td>
+                    <td>{chamada.local_chamada}</td>
+                    <td>{chamada.destino_chamada}</td>
+                    <td>{chamada.id_modal_colab?.id_colab?.nm_colab}</td>
+                    <td>{chamada.id_veic_client?.id_cliente?.nm_cliente}</td>
+                    <td>{chamada.id_veic_client?.id_veiculo?.placa_veiculo}</td>
+                    <td>{chamada.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
