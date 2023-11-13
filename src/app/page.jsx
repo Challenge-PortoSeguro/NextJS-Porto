@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import Gif from "../assets/images/gif_AI.gif";
+import Gif from "../assets/images/illustration_home.svg";
 import Handshake from "../assets/images/handshake.svg";
 import Eficience from "../assets/images/eficience.svg";
 import Innovation from "../assets/images/inovation.svg";
