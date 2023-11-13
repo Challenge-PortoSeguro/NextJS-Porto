@@ -74,9 +74,9 @@ export default function ProfileClient({ params }) {
         }
     }, [params.id]);
 
-    const fetchColabs = useCallback(async () => {
+    const fetchColabs = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/colaborador`, {
+            const response = await fetch(`http://localhost:3000/api/colaborador/modal-colab`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -86,14 +86,15 @@ export default function ProfileClient({ params }) {
 
             if (response.ok) {
                 const responseData = await response.json();
+                console.log(responseData);
                 setColabs(responseData);
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
-    }, []);
+    };
 
-    const fetchChamadas = useCallback(async () => {
+    const fetchChamadas = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/chamada`, {
                 method: "GET",
@@ -111,7 +112,7 @@ export default function ProfileClient({ params }) {
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
-    }, []);
+    };
 
     const updateClient = async (data) => {
         if (!data.cpf_cliente) data.cpf_cliente = cliente.cpf_cliente;
@@ -146,7 +147,7 @@ export default function ProfileClient({ params }) {
 
     const updateVehicle = async (data) => {
         if (!data.ano_veiculo) data.ano_veiculo = veiculos.ano_veiculo;
-        if (!data.apolice_veiculo) data.apolice_veiculo = veiculos.apolice_veiculo;
+        data.apolice_veiculo = veiculos.apolice_veiculo;
         data.id_medida = { id: veiculos.id_medida.id };
         if (!data.modelo_veiculo) data.modelo_veiculo = veiculos.modelo_veiculo;
         if (!data.nr_chassi) data.nr_chassi = veiculos.nr_chassi;
@@ -156,7 +157,6 @@ export default function ProfileClient({ params }) {
         if (!data.tp_chassi) data.tp_chassi = veiculos.tp_chassi;
         if (!data.tp_eixo) data.tp_eixo = veiculos.tp_eixo;
 
-        console.log(data);
         try {
             const response = await fetch(`http://localhost:3000/api/cliente/veiculo/${veiculos?.id_veiculo}`, {
                 method: "PUT",
@@ -279,8 +279,9 @@ export default function ProfileClient({ params }) {
                     <div className="container">
                         {veiculos.length !== 0 && steps === 0 && <ButtonPrimary onClick={() => setSteps(1)}>Iniciar Chamada</ButtonPrimary>}
                         {steps === 1 && (
-                            <>
-                                <h2 className="title_vehicle">As informações do seu veículo estão atualizadas?</h2>
+                            <div className="container_info_step1">
+                                <h2 className="title_vehicle_step1">As informações do seu veículo estão atualizadas?</h2>
+
                                 <div className="infos">
                                     <h1>Id:</h1>
                                     <h2>{veiculos?.id_veiculo}</h2>
@@ -301,7 +302,7 @@ export default function ProfileClient({ params }) {
                                     <h1>Apolice:</h1>
                                     <h2>{veiculos?.apolice_veiculo}</h2>
                                 </div>
-                                <p>Medidas:</p>
+                                <p className="title_medidas_step1">Medidas:</p>
                                 <div className="infos">
                                     <h1>Altura:</h1>
                                     <h2>{veiculos?.id_medida?.altura} m</h2>
@@ -314,16 +315,24 @@ export default function ProfileClient({ params }) {
                                     <h1>Comprimento:</h1>
                                     <h2>{veiculos?.id_medida?.comprimento} m</h2>
                                 </div>
-                                <div className="divButton">
-                                    <ButtonSecondary onClick={() => setSteps(0)}>{icons.back} Voltar</ButtonSecondary>
-                                    {veiculos?.id_medida && <ButtonPrimary onClick={() => setIsOpenVeiculo(true)}>{icons.edit}Editar Veículo</ButtonPrimary>}
-                                    <ButtonSecondary onClick={() => setSteps(2)}>Próximo {icons.next}</ButtonSecondary>
+                                <div className="infos">
+                                    <h1>Peso:</h1>
+                                    <h2>{veiculos?.id_medida?.peso} tol</h2>
                                 </div>
-                            </>
+                                <div className="infos">
+                                    <h1>Peso Suportado:</h1>
+                                    <h2>{veiculos?.id_medida?.peso_suportado} tol</h2>
+                                </div>
+                                <div className="divButton">
+                                    <ButtonSecondary onClick={() => setSteps(0)}>{icons.back}</ButtonSecondary>
+                                    {veiculos?.id_medida && <ButtonPrimary onClick={() => setIsOpenVeiculo(true)}>{icons.edit}Editar</ButtonPrimary>}
+                                    <ButtonSecondary onClick={() => setSteps(2)}>{icons.next}</ButtonSecondary>
+                                </div>
+                            </div>
                         )}
                         {steps === 2 && (
-                            <>
-                                <h2 className="title_vehicle">As informações do cliente estão atualizadas?</h2>
+                            <div className="container_info_step1">
+                                <h2 className="title_vehicle_step1">As informações do cliente estão atualizadas?</h2>
                                 <div className="infos">
                                     <h1>Nome:</h1>
                                     <h2>{cliente?.nm_cliente}</h2>
@@ -353,34 +362,37 @@ export default function ProfileClient({ params }) {
                                     <h2>{cliente?.endereco_cliente}</h2>
                                 </div>
                                 <div className="divButton">
-                                    <ButtonSecondary onClick={() => setSteps(1)}>{icons.back} Voltar</ButtonSecondary>
-                                    {cliente?.id_cliente && <ButtonPrimary onClick={() => setIsOpenCliente(true)}>{icons.edit}Editar Cliente</ButtonPrimary>}
-                                    <ButtonSecondary onClick={() => setSteps(3)}>Próximo {icons.next}</ButtonSecondary>
-                                </div>
-                            </>
-                        )}
-                        {steps === 3 && (
-                            <div>
-                                <h2 className="title_vehicle">Selecione um Guincho</h2>
-                                {colabs.map((colab) => (
-                                    <div key={colab.id_colab}>
-                                        <p>{colab.nm_colab}</p>
-                                        <p>{colab.id_modal.marca_modal + " - " + colab.id_modal.modelo_modal}</p>
-                                        <p>{colab.id_modal.placa_modal}</p>
-                                        <ButtonPrimary onClick={() => { setSelectedGuincho(colab.id_modal_colab); setSteps(4); }}>Selecionar {icons.guincho}</ButtonPrimary>
-                                    </div>
-                                ))}
-                                <div style={({ display: "flex", justifyContent: "center", gap: "12px", marginTop: "16px" })}>
-                                    <ButtonSecondary onClick={() => setSteps(2)}>{icons.back} Voltar</ButtonSecondary>
-                                    <ButtonSecondary onClick={() => {
-                                        if (selectedGuincho) setSteps(4);
-                                        else alert("Selecione um guincho");
-                                    }}>Próximo {icons.next}</ButtonSecondary>
+                                    <ButtonSecondary onClick={() => setSteps(1)}>{icons.back}</ButtonSecondary>
+                                    {cliente?.id_cliente && <ButtonPrimary onClick={() => setIsOpenCliente(true)}>{icons.edit}Editar</ButtonPrimary>}
+                                    <ButtonSecondary onClick={() => setSteps(3)}>{icons.next}</ButtonSecondary>
                                 </div>
                             </div>
                         )}
+                        {steps === 3 && (
+                            <>
+                                <h2 className="title_vehicle_step1">Selecione um Guincho</h2>
+                                {colabs.length !== 0 && (
+                                    colabs.map((colab) => (
+                                        <div className="container_info_step3" key={colab.id_colab}>
+                                            <p>{colab.nm_colab}</p>
+                                            <p>{colab.id_modal.marca_modal + " - " + colab.id_modal.modelo_modal}</p>
+                                            <p>{colab.id_modal.placa_modal}</p>
+                                            <ButtonPrimary onClick={() => { setSelectedGuincho(colab.id_modal_colab); setSteps(4); }}>Selecionar {icons.guincho}</ButtonPrimary>
+                                        </div>
+                                    ))
+                                )}
+                                {colabs.length === 0 && <p style={({ fontSize: "24px", fontWeight: "700" })}>Não há guinchos disponíveis</p>}
+                                <div style={({ display: "flex", justifyContent: "center", gap: "12px", marginTop: "16px" })}>
+                                    <ButtonSecondary onClick={() => setSteps(2)}>{icons.back}</ButtonSecondary>
+                                    <ButtonSecondary onClick={() => {
+                                        if (selectedGuincho) setSteps(4);
+                                        else alert("Selecione um guincho");
+                                    }}>{icons.next}</ButtonSecondary>
+                                </div>
+                            </>
+                        )}
                         {steps === 4 && (
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <form className="form_chamada" onSubmit={handleSubmit(onSubmit)}>
                                 <TextArea
                                     label="Descrição do problema"
                                     maxLength={300}
@@ -400,7 +412,7 @@ export default function ProfileClient({ params }) {
                                     onChange={(e) => setValue("destino_chamada", e.target.value)}
                                 />
                                 <div style={({ display: "flex", justifyContent: "center", gap: "12px", marginTop: "16px" })}>
-                                    <ButtonSecondary onClick={() => { setSteps(3); reset(); }}>{icons.back} Voltar</ButtonSecondary>
+                                    <ButtonSecondary onClick={() => { setSteps(3); reset(); }}>{icons.back}</ButtonSecondary>
                                     <ButtonPrimary type="submit">Solicitar Chamada</ButtonPrimary>
                                 </div>
                             </form>
@@ -507,13 +519,6 @@ export default function ProfileClient({ params }) {
                                 maxLength={4}
                                 placeholder="Digite seu novo ano do veículo"
                                 onChange={(e) => setValue("ano_veiculo", e.target.value)}
-                            />
-                            <Input
-                                label="Apólice"
-                                type="number"
-                                maxLength={10}
-                                placeholder="Digite seu novo apólice"
-                                onChange={(e) => setValue("apolice_cliente", e.target.value)}
                             />
                             <Input
                                 label="Modelo"
