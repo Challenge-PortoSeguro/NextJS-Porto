@@ -74,15 +74,15 @@ export default function Home() {
         <h1 className="principles-title">NOSSOS PRINCÍPIOS</h1>
         <div className="principles-content">
           <Card>
-            <Image src={Handshake} height={300} width={300} alt="Ilustração Mãos Dadas" />
+            {/* <Image src={Handshake} height={300} width={300} alt="Ilustração Mãos Dadas" /> */}
             <h1 className="card-title">Compromisso</h1>
           </Card>
           <Card>
-            <Image src={Innovation} height={300} width={300} alt="Ilustração Inovação" />
+            {/* <Image src={Innovation} height={300} width={300} alt="Ilustração Inovação" /> */}
             <h1 className="card-title">Inovação</h1>
           </Card>
           <Card>
-            <Image src={Eficience} height={300} width={300} alt="Ilustração Eficiência" />
+            {/* <Image src={Eficience} height={300} width={300} alt="Ilustração Eficiência" /> */}
             <h1 className="card-title">Eficiência</h1>
           </Card>
         </div>
@@ -93,7 +93,7 @@ export default function Home() {
         <ButtonSecondary redirect="https://github.com/Challenge-PortoSeguro/NextJS-Porto">{icons.github} REPOSITÓRIO</ButtonSecondary>
         <div className="group-content">
           <Card>
-            <Image className="card-image" src="https://github.com/CarlosEduardo7700.png" height={150} width={150} alt="Foto Carlos Eduardo" />
+            {/* <Image className="card-image" src="https://github.com/CarlosEduardo7700.png" height={150} width={150} alt="Foto Carlos Eduardo" /> */}
             <h1 className="card-title">Carlos Eduardo</h1>
             <p className="card-subtitle">RM552164</p>
             <div className="buttons-card">
@@ -102,7 +102,7 @@ export default function Home() {
             </div>
           </Card>
           <Card>
-            <Image className="card-image" src="https://github.com/Duh0127.png" height={150} width={150} alt="Foto Eduardo Toshio" />
+            {/* <Image className="card-image" src="https://github.com/Duh0127.png" height={150} width={150} alt="Foto Eduardo Toshio" /> */}
             <h1 className="card-title">Eduardo Toshio</h1>
             <p className="card-subtitle">RM551763</p>
             <div className="buttons-card">
@@ -111,7 +111,7 @@ export default function Home() {
             </div>
           </Card>
           <Card>
-            <Image className="card-image" src="https://github.com/kauezin05.png" height={150} width={150} alt="Foto Kauê Alexandre" />
+            {/* <Image className="card-image" src="https://github.com/kauezin05.png" height={150} width={150} alt="Foto Kauê Alexandre" /> */}
             <h1 className="card-title">Kauê Alexandre</h1>
             <p className="card-subtitle">RM551812</p>
             <div className="buttons-card">
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
           </Card>
           <Card>
-            <Image className="card-image" src="https://github.com/matviniciuus.png" height={150} width={150} alt="Foto Mateus Vinícius" />
+            {/* <Image className="card-image" src="https://github.com/matviniciuus.png" height={150} width={150} alt="Foto Mateus Vinícius" /> */}
             <h1 className="card-title">Mateus Vinícius</h1>
             <p className="card-subtitle">RM551692</p>
             <div className="buttons-card">
@@ -129,7 +129,7 @@ export default function Home() {
             </div>
           </Card>
           <Card>
-            <Image className="card-image" src="https://github.com/PedroFigueiredo7.png" height={150} width={150} alt="Foto Mateus Vinícius" />
+            {/* <Image className="card-image" src="https://github.com/PedroFigueiredo7.png" height={150} width={150} alt="Foto Mateus Vinícius" /> */}
             <h1 className="card-title">Pedro Figueiredo</h1>
             <p className="card-subtitle">RM552000</p>
             <div className="buttons-card">
@@ -138,7 +138,7 @@ export default function Home() {
             </div>
           </Card>
           <Card>
-            <Image className="card-image" src="https://github.com/VitorMiranda11.png" height={150} width={150} alt="Foto Vitor Miranda" />
+            {/* <Image className="card-image" src="https://github.com/VitorMiranda11.png" height={150} width={150} alt="Foto Vitor Miranda" /> */}
             <h1 className="card-title">Vitor Miranda</h1>
             <p className="card-subtitle">RM551451</p>
             <div className="buttons-card">
