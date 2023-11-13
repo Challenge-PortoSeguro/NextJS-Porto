@@ -8,19 +8,18 @@ import "../styles.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { yupResolver } from '@hookform/resolvers/yup'
-import schema from "../yup-schema";
-import { formatDate } from "@/utils/Date";
 
 export default function Register() {
     const route = useRouter();
-    // const { handleSubmit, setValue, formState: { errors } } = useForm({
-    //     resolver: yupResolver(schema)
-    // });
     const { handleSubmit, setValue } = useForm();
     const [nextStep, setNextStep] = useState(false);
 
     const onSubmit = async (data) => {
+        if (!data.nm_cliente || !data.cpf_cliente || !data.dt_nasc_cliente || !data.genero_cliente || !data.telefone_cliente || !data.endereco_cliente || !data.email_cliente || !data.senha_cliente || !data.modelo_veiculo || !data.ano_veiculo || !data.placa_veiculo || !data.renavan_veiculo || !data.nr_chassi || !data.tp_chassi || !data.tp_eixo || !data.qtd_eixos_veiculo || !data.altura || !data.largura || !data.comprimento || !data.peso || !data.peso_suportado) {
+            alert("Preencha todos os campos")
+            return;
+        }
+
         try {
             const response = await fetch("http://localhost:3000/api/cliente/0", {
                 method: "POST",
@@ -52,7 +51,6 @@ export default function Register() {
                             label="Nome Completo"
                             placeholder="Digite seu nome"
                             onChange={(e) => setValue("nm_cliente", e.target.value)}
-                        // error={errors.nome?.message}
                         />
                         <div className="two-inputs">
                             <Input
@@ -61,22 +59,18 @@ export default function Register() {
                                 maxLength={11}
                                 placeholder="Digite seu CPF"
                                 onChange={(e) => setValue("cpf_cliente", e.target.value)}
-                            // error={errors.cpf?.message}
                             />
                             <Input
                                 label="Nascimento"
                                 type="date"
                                 onChange={(e) => setValue("dt_nasc_cliente", e.target.value)}
-                            // error={errors.nascimento?.message}
                             />
                         </div>
                         <div className="two-inputs">
                             <Select
                                 label="Gênero"
-                                placeholder="Selecione seu gênero"
-                                options={[{ value: "masculino", label: "Masculino" }, { value: "feminino", label: "Feminino" }, { value: "prefiro não dizer", label: "Prefiro não dizer" }]}
+                                options={[{value: "", label: "Escolha o seu gênero"}, { value: "masculino", label: "Masculino" }, { value: "feminino", label: "Feminino" }, { value: "prefiro não dizer", label: "Prefiro não dizer" }]}
                                 onChange={(e) => setValue("genero_cliente", e.target.value)}
-                            // error={errors.genero?.message}
                             />
                             <Input
                                 label="Telefone"
@@ -84,7 +78,6 @@ export default function Register() {
                                 maxLength={11}
                                 placeholder="Digite seu telefone"
                                 onChange={(e) => setValue("telefone_cliente", e.target.value)}
-                            // error={errors.telefone?.message}
                             />
                         </div>
                         <Input
@@ -92,7 +85,6 @@ export default function Register() {
                             maxLength={80}
                             placeholder="Digite o nome do endereço"
                             onChange={(e) => setValue("endereco_cliente", e.target.value)}
-                        // error={errors.endereco?.message}
                         />
                         <Input
                             label="E-mail"
@@ -100,7 +92,6 @@ export default function Register() {
                             maxLength={50}
                             placeholder="Digite seu e-mail"
                             onChange={(e) => setValue("email_cliente", e.target.value)}
-                        // error={errors.email?.message}
                         />
                         <Input
                             label="Senha"
@@ -108,7 +99,6 @@ export default function Register() {
                             maxLength={300}
                             placeholder="Digite sua senha"
                             onChange={(e) => setValue("senha_cliente", e.target.value)}
-                        // error={errors.senha?.message}
                         />
                         <ButtonPrimary redirect="" onClick={() => setNextStep(true)}>Continuar</ButtonPrimary>
                         <ButtonLink redirect="/pages/auth/login/client">Já possui uma conta?</ButtonLink>
@@ -151,19 +141,17 @@ export default function Register() {
                                 onChange={(e) => setValue("nr_chassi", e.target.value)}
                             />
                         </div>
-                        <Select
+                        <Input
                             label="Tipo Chassi"
                             maxLength={300}
-                            placeholder="Selecione o tipo do chassi"
-                            options={[{ value: "longarina", label: "Longarina" }, { value: "monobloco", label: "Monobloco" }]}
+                            placeholder="Digite o tipo do chassi"
                             onChange={(e) => setValue("tp_chassi", e.target.value)}
                         />
                         <div className="two-inputs">
-                            <Select
+                            <Input
                                 label="Tipo Eixo"
                                 maxLength={300}
-                                placeholder="Selecione o tipo do eixo"
-                                options={[{ value: "simples", label: "Simples" }, { value: "duplo", label: "Duplo" }]}
+                                placeholder="Digite o tipo do eixo"
                                 onChange={(e) => setValue("tp_eixo", e.target.value)}
                             />
                             <Input
