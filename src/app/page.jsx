@@ -51,7 +51,7 @@ export default function Home() {
       <section className="about-div">
         <h1 className="about-title">{icons.aboutus} QUEM SOMOS</h1>
         <div className="info-div">
-          <div className="illustration-about" />
+          {/* <div className="illustration-about" /> */}
           <div className="info-content">
             <p className="info-text">
               A Porto Assistant foi criada em 2023 por um grupo
