@@ -45,7 +45,7 @@ export default function Home() {
             <ButtonLink >{icons.play} Apresentação</ButtonLink>
           </div>
         </div>
-        <Image className="illustration-welcome" src={Gif} height={100} width={100} alt="Ilustração de Bem vindo" />
+        <Image src={Gif} height={300} width={300} alt="Ilustração de Bem vindo" />
       </section>
 
       <section className="about-div">
