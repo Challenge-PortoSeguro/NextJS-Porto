@@ -39,7 +39,7 @@ export default function Login() {
                     router.push(`/pages/profile/colab/${parseInt(localStorage.getItem("id"))}`);
                     setTimeout(() => {
                         window.location.reload();
-                    }, 2500)
+                    }, 3000)
                 }
             } else {
                 alert("Usuário ou Senha Inválidos"); 

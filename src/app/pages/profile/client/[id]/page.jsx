@@ -1,9 +1,10 @@
 'use client'
 import "../../styles.css";
 import Logo from "@/assets/images/logo.png";
-import Button from "@/components/Button/variants/primary";
+import ButtonPrimary from "@/components/Button/variants/primary";
+import ButtonSecondary from "@/components/Button/variants/secondary";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import renderIcon from "@/utils/iconGallery";
 import { formatDate, formatTime } from "@/utils/Date";
 import { useRouter } from "next/navigation";
@@ -11,20 +12,29 @@ import Modal from "@/components/Modal/page";
 import Input from "@/components/Input/page";
 import { useForm } from "react-hook-form";
 import Select from "@/components/Select/page";
+import TextArea from "@/components/TextArea/page";
 
 export default function ProfileClient({ params }) {
     const route = useRouter();
+    const [steps, setSteps] = useState(0);
     const { setValue, handleSubmit, reset } = useForm();
     const [isOpenVeiculo, setIsOpenVeiculo] = useState(false);
     const [isOpenCliente, setIsOpenCliente] = useState(false);
     const [cliente, setCliente] = useState({});
     const [veiculos, setVeiculos] = useState([]);
+    const [idVeicCliente, setIdVeicCliente] = useState();
+    const [colabs, setColabs] = useState([]);
+    const [selectedGuincho, setSelectedGuincho] = useState();
+    const [chamadas, setChamadas] = useState([]);
     const icons = useMemo(() => ({
         play: renderIcon({ name: "play", size: 18, color: "#000" }),
         edit: renderIcon({ name: "edit", size: 18, color: "#ffffff" }),
+        back: renderIcon({ name: "back", size: 18, color: "#000000" }),
+        next: renderIcon({ name: "next", size: 18, color: "#000000" }),
+        guincho: renderIcon({ name: "guincho", size: 18, color: "#ffffff" }),
     }), []);
 
-    const fetchClient = async () => {
+    const fetchClient = useCallback(async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/cliente/${params.id}`, {
                 method: "GET",
@@ -41,9 +51,9 @@ export default function ProfileClient({ params }) {
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
-    }
+    }, [params.id]);
 
-    const fetchVehicles = async () => {
+    const fetchVehicles = useCallback(async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/cliente/veiculo/${params.id}`, {
                 method: "GET",
@@ -54,13 +64,54 @@ export default function ProfileClient({ params }) {
             });
 
             if (response.ok) {
-                const { id_veiculo } = await response.json();
+                const data = await response.json();
+                setIdVeicCliente(data.id_veic_client)
+                const { id_veiculo } = data;
                 setVeiculos(id_veiculo)
             }
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
-    }
+    }, [params.id]);
+
+    const fetchColabs = useCallback(async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/colaborador`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                setColabs(responseData);
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
+        }
+    }, []);
+
+    const fetchChamadas = useCallback(async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/chamada`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData);
+                setChamadas(responseData);
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
+        }
+    }, []);
 
     const updateClient = async (data) => {
         if (!data.cpf_cliente) data.cpf_cliente = cliente.cpf_cliente;
@@ -126,9 +177,39 @@ export default function ProfileClient({ params }) {
         }
     }
 
+    const onSubmit = async (data) => {
+        if (!data.ds_prob_chamada || !data.local_chamada || !data.destino_chamada) return alert("Preencha todos os campos");
+
+        data.id_veic_client = { id_veic_client: idVeicCliente };
+        data.id_modal_colab = { id_modal_colab: selectedGuincho };
+        data.dt_inicio_chamada = formatDate(new Date());
+        data.dt_fim_chamada = "";
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/chamada`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                setSteps(0);
+                alert("Chamada solicitada com sucesso");
+            }
+
+        } catch (error) {
+            console.error("Ocorreu um erro durante a solicitação:", error);
+        }
+    }
+
     useEffect(() => {
         localStorage.getItem("id") && fetchClient();
         localStorage.getItem("id") && fetchVehicles();
+        localStorage.getItem("id") && fetchColabs();
+        localStorage.getItem("id") && fetchChamadas();
         !localStorage.getItem("id") && route.push("/");
     }, []);
 
@@ -169,7 +250,6 @@ export default function ProfileClient({ params }) {
                             <h1>Endereço:</h1>
                             <h2>{cliente?.endereco_cliente}</h2>
                         </div>
-                        {cliente?.id_cliente && <Button onClick={() => setIsOpenCliente(true)}>{icons.edit}Editar Cliente</Button>}
                     </div>
                     <div className="vehicle-info">
                         <h2>Veículo</h2>
@@ -193,14 +273,168 @@ export default function ProfileClient({ params }) {
                             <h1>Apolice:</h1>
                             <h2>{veiculos?.apolice_veiculo}</h2>
                         </div>
-                        {veiculos?.id_medida && <Button onClick={() => setIsOpenVeiculo(true)}>{icons.edit}Editar Veículo</Button>}
                     </div>
                 </aside>
                 <div className="chatbot">
                     <div className="container">
-                        <Button>Iniciar ChatBot</Button>
+                        {veiculos.length !== 0 && steps === 0 && <ButtonPrimary onClick={() => setSteps(1)}>Iniciar Chamada</ButtonPrimary>}
+                        {steps === 1 && (
+                            <>
+                                <h2 className="title_vehicle">As informações do seu veículo estão atualizadas?</h2>
+                                <div className="infos">
+                                    <h1>Id:</h1>
+                                    <h2>{veiculos?.id_veiculo}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Modelo:</h1>
+                                    <h2>{veiculos?.modelo_veiculo}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Placa:</h1>
+                                    <h2>{veiculos?.placa_veiculo}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Ano Fabricação:</h1>
+                                    <h2>{veiculos?.ano_veiculo}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Apolice:</h1>
+                                    <h2>{veiculos?.apolice_veiculo}</h2>
+                                </div>
+                                <p>Medidas:</p>
+                                <div className="infos">
+                                    <h1>Altura:</h1>
+                                    <h2>{veiculos?.id_medida?.altura} m</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Largura:</h1>
+                                    <h2>{veiculos?.id_medida?.largura} m</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Comprimento:</h1>
+                                    <h2>{veiculos?.id_medida?.comprimento} m</h2>
+                                </div>
+                                <div className="divButton">
+                                    <ButtonSecondary onClick={() => setSteps(0)}>{icons.back} Voltar</ButtonSecondary>
+                                    {veiculos?.id_medida && <ButtonPrimary onClick={() => setIsOpenVeiculo(true)}>{icons.edit}Editar Veículo</ButtonPrimary>}
+                                    <ButtonSecondary onClick={() => setSteps(2)}>Próximo {icons.next}</ButtonSecondary>
+                                </div>
+                            </>
+                        )}
+                        {steps === 2 && (
+                            <>
+                                <h2 className="title_vehicle">As informações do cliente estão atualizadas?</h2>
+                                <div className="infos">
+                                    <h1>Nome:</h1>
+                                    <h2>{cliente?.nm_cliente}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Email:</h1>
+                                    <h2>{cliente?.email_cliente}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>CPF:</h1>
+                                    <h2>{cliente?.cpf_cliente}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Nascimento:</h1>
+                                    <h2>{cliente?.dt_nasc_cliente && formatTime(cliente?.dt_nasc_cliente)}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Gênero:</h1>
+                                    <h2>{cliente?.genero_cliente}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Telefone:</h1>
+                                    <h2>{cliente?.telefone_cliente}</h2>
+                                </div>
+                                <div className="infos">
+                                    <h1>Endereço:</h1>
+                                    <h2>{cliente?.endereco_cliente}</h2>
+                                </div>
+                                <div className="divButton">
+                                    <ButtonSecondary onClick={() => setSteps(1)}>{icons.back} Voltar</ButtonSecondary>
+                                    {cliente?.id_cliente && <ButtonPrimary onClick={() => setIsOpenCliente(true)}>{icons.edit}Editar Cliente</ButtonPrimary>}
+                                    <ButtonSecondary onClick={() => setSteps(3)}>Próximo {icons.next}</ButtonSecondary>
+                                </div>
+                            </>
+                        )}
+                        {steps === 3 && (
+                            <div>
+                                <h2 className="title_vehicle">Selecione um Guincho</h2>
+                                {colabs.map((colab) => (
+                                    <div key={colab.id_colab}>
+                                        <p>{colab.nm_colab}</p>
+                                        <p>{colab.id_modal.marca_modal + " - " + colab.id_modal.modelo_modal}</p>
+                                        <p>{colab.id_modal.placa_modal}</p>
+                                        <ButtonPrimary onClick={() => { setSelectedGuincho(colab.id_modal_colab); setSteps(4); }}>Selecionar {icons.guincho}</ButtonPrimary>
+                                    </div>
+                                ))}
+                                <div style={({ display: "flex", justifyContent: "center", gap: "12px", marginTop: "16px" })}>
+                                    <ButtonSecondary onClick={() => setSteps(2)}>{icons.back} Voltar</ButtonSecondary>
+                                    <ButtonSecondary onClick={() => {
+                                        if (selectedGuincho) setSteps(4);
+                                        else alert("Selecione um guincho");
+                                    }}>Próximo {icons.next}</ButtonSecondary>
+                                </div>
+                            </div>
+                        )}
+                        {steps === 4 && (
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <TextArea
+                                    label="Descrição do problema"
+                                    maxLength={300}
+                                    placeholder="Digite sua descrição"
+                                    onChange={(e) => setValue("ds_prob_chamada", e.target.value)}
+                                />
+                                <Input
+                                    label="Local Atual"
+                                    maxLength={50}
+                                    placeholder="Digite seu local atual"
+                                    onChange={(e) => setValue("local_chamada", e.target.value)}
+                                />
+                                <Input
+                                    label="Local de Destino"
+                                    maxLength={50}
+                                    placeholder="Digite seu local de destino"
+                                    onChange={(e) => setValue("destino_chamada", e.target.value)}
+                                />
+                                <div style={({ display: "flex", justifyContent: "center", gap: "12px", marginTop: "16px" })}>
+                                    <ButtonSecondary onClick={() => { setSteps(3); reset(); }}>{icons.back} Voltar</ButtonSecondary>
+                                    <ButtonPrimary type="submit">Solicitar Chamada</ButtonPrimary>
+                                </div>
+                            </form>
+                        )}
                     </div>
                 </div>
+            </div>
+            <div className="lower-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Local</th>
+                            <th>Destino</th>
+                            <th>Guincho</th>
+                            <th>Cliente</th>
+                            <th>Veículo</th>
+                            <th>Data Início</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {chamadas.map((chamada) => (
+                            <tr key={chamada.id_chamada}>
+                                <td>{chamada.ds_prob_chamada}</td>
+                                <td>{chamada.local_chamada}</td>
+                                <td>{chamada.destino_chamada}</td>
+                                <td>{chamada.id_modal_colab?.id_colab?.nm_colab}</td>
+                                <td>{chamada.id_veic_client?.id_cliente?.nm_cliente}</td>
+                                <td>{chamada.id_veic_client?.id_veiculo?.placa_veiculo}</td>
+                                <td>{chamada.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
             {isOpenCliente && (
                 <Modal closeModal={() => { setIsOpenCliente(false); reset(); }} title="Atualizar Cliente">
@@ -258,7 +492,7 @@ export default function ProfileClient({ params }) {
                                 placeholder="Digite sua nova senha"
                                 onChange={(e) => setValue("senha_cliente", e.target.value)}
                             />
-                            <Button type="submit">Atualizar</Button>
+                            <ButtonPrimary type="submit">Atualizar</ButtonPrimary>
                         </form>
                     </div>
                 </Modal>
@@ -324,7 +558,7 @@ export default function ProfileClient({ params }) {
                                 placeholder="Digite seu novo tipo de eixo"
                                 onChange={(e) => setValue("tp_eixo", e.target.value)}
                             />
-                            <Button type="submit">Atualizar</Button>
+                            <ButtonPrimary type="submit">Atualizar</ButtonPrimary>
                         </form>
                     </div>
                 </Modal>

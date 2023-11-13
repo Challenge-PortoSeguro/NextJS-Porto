@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     const { id } = params;
-    if (id) {
+    console.log(id);
+    if (id !== 0) {
         const responseById = await fetch(`http://127.0.0.1:8081/api/colaborador/${id}`, {
             method: "GET",
             headers: {
@@ -14,8 +15,6 @@ export async function GET(request, { params }) {
         const userById = await responseById.json();
         return NextResponse.json(userById);
     }
-    const users = await responseAll.json();
-    return NextResponse.json(users);
 }
 
 
@@ -83,12 +82,12 @@ export async function POST(request) {
                 try {
                     const dataColaborador = await postColaborador.json();
                     const dataModal = await postModal.json();
-            
+
                     const sendData = {
                         id_colab: { id_colab: dataColaborador.id_colab },
                         id_modal: { id_modal: dataModal.id_modal }
                     }
-            
+
                     const postColaboradorModal = await fetch("http://127.0.0.1:8081/api/modal-colaborador", {
                         method: "POST",
                         headers: {
@@ -97,7 +96,7 @@ export async function POST(request) {
                         },
                         body: JSON.stringify(sendData),
                     });
-            
+
                     if (postColaboradorModal.ok) {
                         return new Response("Modal cadastrado no N pra N", { status: postColaboradorModal.status });
                     } else {
@@ -114,7 +113,7 @@ export async function POST(request) {
             } else {
                 console.error("Falha na solicitação. Status: postModal: " + postModal.status + ", postColaborador: " + postColaborador.status);
                 return new Response("Falha na solicitação. Verifique o status das solicitações", { status: 400 });
-            }            
+            }
         }
     } catch (error) {
         console.error("Ocorreu um erro durante a solicitação:", error);

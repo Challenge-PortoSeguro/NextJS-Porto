@@ -1,8 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-export default function Input({
-  type = "text",
+export default function TextArea({
   placeholder,
   onChange,
   value,
@@ -11,9 +10,8 @@ export default function Input({
   error,
   register,
   maxLength,
-  step,
 }) {
-  const handleInput = (e) => {
+  const handleTextArea = (e) => {
     if (maxLength && e.target.value.length > maxLength) {
       e.target.value = e.target.value.slice(0, maxLength);
     }
@@ -24,16 +22,13 @@ export default function Input({
   };
 
   return (
-    <div className="input-container">
+    <div className="textarea-container">
       <label>{label}</label>
-      <input
+      <textarea
         name={name}
-        type={type}
         placeholder={placeholder}
-        onChange={handleInput}
+        onChange={handleTextArea}
         value={value}
-        min={type === "number" ? 0 : null}
-        step={step && step}
         {...register}
       />
       {error && <span className="error">{error}</span>}
