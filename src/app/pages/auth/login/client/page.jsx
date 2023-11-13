@@ -35,8 +35,8 @@ export default function Login() {
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData) {
-                    localStorage.setItem("id", responseData.id_cliente);
-                    router.push(`/pages/profile/client/${parseInt(localStorage.getItem("id"))}`);
+                    sessionStorage.setItem("token", responseData.id_cliente);
+                    router.push(`/pages/profile/client/${parseInt(sessionStorage.getItem("token"))}`);
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000)

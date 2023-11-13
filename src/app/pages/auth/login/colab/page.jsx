@@ -35,8 +35,8 @@ export default function Login() {
                 const responseData = await response.json();
 
                 if (responseData) {
-                    localStorage.setItem("id", responseData.id_colab);
-                    router.push(`/pages/profile/colab/${parseInt(localStorage.getItem("id"))}`);
+                    sessionStorage.setItem("token", responseData.id_colab);
+                    router.push(`/pages/profile/colab/${parseInt(sessionStorage.getItem("token"))}`);
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000)

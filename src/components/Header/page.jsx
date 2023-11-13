@@ -23,7 +23,7 @@ export default function Header() {
     }), []);
 
     useEffect(() => {
-        const token = localStorage.getItem("id");
+        const token = sessionStorage.getItem("token");
         if (token) {
             setIsToken(token);
         } else {
@@ -39,7 +39,7 @@ export default function Header() {
                     {!isToken && <li><ButtonPrimary redirect="/pages/auth/login/client">{icons.login} Login</ButtonPrimary></li>}
                     {isToken && <li><ButtonPrimary redirect={`/pages/profile/client/${isToken}`}>{icons.user} Perfil</ButtonPrimary></li>}
                     {isToken && <li><ButtonDanger onClick={() => {
-                        localStorage.removeItem("id");
+                        sessionStorage.removeItem("token");
                         route.push("/");
                         setTimeout(() => {
                             window.location.reload();

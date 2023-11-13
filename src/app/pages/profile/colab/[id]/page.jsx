@@ -144,8 +144,8 @@ export default function ProfileColab({ params }) {
 
 
   useEffect(() => {
-    !localStorage.getItem("id") && route.push("/");
-    if (params?.id) {
+    !sessionStorage.getItem("token") && route.push("/");
+    if (params?.id && sessionStorage.getItem("token")) {
       fetchColaborador();
       fetchModals();
       fetchChamadas();
@@ -207,23 +207,23 @@ export default function ProfileColab({ params }) {
             </div>
             <div className="div-info">
               <h1>Altura</h1>
-              <h2>{modals?.id_medida.altura}</h2>
+              <h2>{modals?.id_medida?.altura}</h2>
             </div>
             <div className="div-info">
               <h1>Largura</h1>
-              <h2>{modals?.id_medida.largura}</h2>
+              <h2>{modals?.id_medida?.largura}</h2>
             </div>
             <div className="div-info">
               <h1>Comprimento</h1>
-              <h2>{modals?.id_medida.comprimento}</h2>
+              <h2>{modals?.id_medida?.comprimento}</h2>
             </div>
             <div className="div-info">
               <h1>Peso</h1>
-              <h2>{modals?.id_medida.peso}</h2>
+              <h2>{modals?.id_medida?.peso}</h2>
             </div>
             <div className="div-info">
               <h1>Peso Suportado</h1>
-              <h2>{modals?.id_medida.peso_suportado}</h2>
+              <h2>{modals?.id_medida?.peso_suportado}</h2>
             </div>
             <Button onClick={() => setIsOpenModal(true)}>{icons.edit}Editar Modal</Button>
           </div>

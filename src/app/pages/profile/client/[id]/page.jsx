@@ -205,11 +205,11 @@ export default function ProfileClient({ params }) {
     }
 
     useEffect(() => {
-        localStorage.getItem("id") && fetchClient();
-        localStorage.getItem("id") && fetchVehicles();
-        localStorage.getItem("id") && fetchColabs();
-        localStorage.getItem("id") && fetchChamadas();
-        !localStorage.getItem("id") && route.push("/");
+        sessionStorage.getItem("token") && fetchClient();
+        sessionStorage.getItem("token") && fetchVehicles();
+        sessionStorage.getItem("token") && fetchColabs();
+        sessionStorage.getItem("token") && fetchChamadas();
+        !sessionStorage.getItem("token") && route.push("/");
     }, []);
 
     return (
