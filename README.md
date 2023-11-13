@@ -1,11 +1,16 @@
 
 # README DO PROJETO NEXTJS - PORTO SEGURO
 ### CASO QUEIRA TESTAR UM LOGIN JA PRONTO, UTILIZAR
-> #### Email: eduardocliente@gmail.com
-> #### Senha: senha
+> ### CLIENTE:
+>> #### Email: eduardocliente@gmail.com
+>> #### Senha: senha
+> ### COLABORADOR:
+>> #### Email: colaboradorcriado@gmail.com
+>> #### Senha: senha
 
 ----------------------------
-# LINK DA NETLIFY (vercel não estava aceitando o deploy do projeto nextjs)
+# LINK DA NETLIFY 
+#### (vercel não estava aceitando o deploy do projeto nextjs)
 ### https://soft-paprenjak-4b480d.netlify.app/
 
 -------------------------------
