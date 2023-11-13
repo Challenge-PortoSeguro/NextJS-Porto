@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useMemo, useEffect, useState, useCallback } from "react";
 import renderIcon from "@/utils/iconGallery";
 import { useRouter } from "next/navigation";
-import { formatDate } from "@/utils/Date";
+import { formatDate, formatTime } from "@/utils/Date";
 import Input from "@/components/Input/page";
 import Select from "@/components/Select/page";
 import Modal from "@/components/Modal/page";
@@ -122,7 +122,6 @@ export default function ProfileColab({ params }) {
     if (!data.ano_modal) data.ano_modal = modals.ano_modal;
     if (!data.tipo_modal) data.tipo_modal = modals.tipo_modal;
     data.id_medida = { id: modals.id_medida.id }
-    console.log(data);
 
     try {
       const response = await fetch(`http://localhost:3000/api/colaborador/modal/${modals?.id_modal}`, {
@@ -212,7 +211,7 @@ export default function ProfileColab({ params }) {
 
         </aside>
         <div className="chatbot">
-          <div className="container">
+          <div className="container lower-container-colab">
             <h1>Chamadas</h1>
             <table>
               <thead>
@@ -220,22 +219,24 @@ export default function ProfileColab({ params }) {
                   <th>Descrição</th>
                   <th>Local</th>
                   <th>Destino</th>
+                  <th>Colaborador</th>
                   <th>Guincho</th>
                   <th>Cliente</th>
                   <th>Veículo</th>
-                  <th>Data Início</th>
+                  <th>Data</th>
                 </tr>
               </thead>
               <tbody>
                 {chamadas.map((chamada) => (
                   <tr key={chamada.id_chamada}>
-                    <td>{chamada.ds_prob_chamada}</td>
-                    <td>{chamada.local_chamada}</td>
-                    <td>{chamada.destino_chamada}</td>
-                    <td>{chamada.id_modal_colab?.id_colab?.nm_colab}</td>
-                    <td>{chamada.id_veic_client?.id_cliente?.nm_cliente}</td>
-                    <td>{chamada.id_veic_client?.id_veiculo?.placa_veiculo}</td>
-                    <td>{chamada.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
+                    <td>{chamada?.ds_prob_chamada}</td>
+                    <td>{chamada?.local_chamada}</td>
+                    <td>{chamada?.destino_chamada}</td>
+                    <td>{chamada?.id_modal_colab?.id_colab?.nm_colab}</td>
+                    <td>{chamada?.id_modal_colab?.id_modal?.modelo_modal}</td>
+                    <td>{chamada?.id_veic_client?.id_cliente?.nm_cliente}</td>
+                    <td>{chamada?.id_veic_client?.id_veiculo?.placa_veiculo}</td>
+                    <td>{chamada?.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
                   </tr>
                 ))}
               </tbody>

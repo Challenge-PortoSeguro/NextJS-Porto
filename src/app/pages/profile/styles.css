@@ -255,3 +255,73 @@ main .modal_confirmar{
         padding: 0;
     }
 }
+
+
+
+.lower-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.lower-container table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+}
+
+.lower-container table thead{
+    background-color: rgb(70, 127, 174);
+    color: #fff;
+}
+
+.lower-container table thead tr th{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000002f;
+}
+
+.lower-container table tbody tr td{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000001f;
+}
+
+
+
+.lower-container-colab{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.lower-container-colab table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+}
+
+.lower-container-colab table thead{
+    background-color: rgb(70, 127, 174);
+    color: #fff;
+}
+
+.lower-container-colab table thead tr th{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000002f;
+}
+
+.lower-container-colab table tbody tr td{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #0000001f;
+}

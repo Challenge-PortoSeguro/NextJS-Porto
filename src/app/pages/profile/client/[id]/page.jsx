@@ -106,7 +106,6 @@ export default function ProfileClient({ params }) {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData);
                 setChamadas(responseData);
             }
         } catch (error) {
@@ -197,9 +196,9 @@ export default function ProfileClient({ params }) {
 
             if (response.ok) {
                 setSteps(0);
+                fetchChamadas();
                 alert("Chamada solicitada com sucesso");
             }
-
         } catch (error) {
             console.error("Ocorreu um erro durante a solicitação:", error);
         }
@@ -427,22 +426,24 @@ export default function ProfileClient({ params }) {
                             <th>Descrição</th>
                             <th>Local</th>
                             <th>Destino</th>
+                            <th>Colaborador</th>
                             <th>Guincho</th>
                             <th>Cliente</th>
                             <th>Veículo</th>
-                            <th>Data Início</th>
+                            <th>Data</th>
                         </tr>
                     </thead>
                     <tbody>
                         {chamadas.map((chamada) => (
-                            <tr key={chamada.id_chamada}>
-                                <td>{chamada.ds_prob_chamada}</td>
-                                <td>{chamada.local_chamada}</td>
-                                <td>{chamada.destino_chamada}</td>
-                                <td>{chamada.id_modal_colab?.id_colab?.nm_colab}</td>
-                                <td>{chamada.id_veic_client?.id_cliente?.nm_cliente}</td>
-                                <td>{chamada.id_veic_client?.id_veiculo?.placa_veiculo}</td>
-                                <td>{chamada.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
+                            <tr key={chamada?.id_chamada}>
+                                <td>{chamada?.ds_prob_chamada}</td>
+                                <td>{chamada?.local_chamada}</td>
+                                <td>{chamada?.destino_chamada}</td>
+                                <td>{chamada?.id_modal_colab?.id_colab?.nm_colab}</td>
+                                <td>{chamada?.id_modal_colab?.id_modal?.modelo_modal}</td>
+                                <td>{chamada?.id_veic_client?.id_cliente?.nm_cliente}</td>
+                                <td>{chamada?.id_veic_client?.id_veiculo?.placa_veiculo}</td>
+                                <td>{chamada?.dt_inicio_chamada && formatTime(chamada.dt_inicio_chamada)}</td>
                             </tr>
                         ))}
                     </tbody>
