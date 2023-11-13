@@ -75,7 +75,6 @@ export default function ProfileColab({ params }) {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
         setChamadas(responseData);
       }
     } catch (error) {
@@ -206,13 +205,33 @@ export default function ProfileColab({ params }) {
               <h1>Tipo Modal</h1>
               <h2>{modals?.tipo_modal}</h2>
             </div>
+            <div className="div-info">
+              <h1>Altura</h1>
+              <h2>{modals?.id_medida.altura}</h2>
+            </div>
+            <div className="div-info">
+              <h1>Largura</h1>
+              <h2>{modals?.id_medida.largura}</h2>
+            </div>
+            <div className="div-info">
+              <h1>Comprimento</h1>
+              <h2>{modals?.id_medida.comprimento}</h2>
+            </div>
+            <div className="div-info">
+              <h1>Peso</h1>
+              <h2>{modals?.id_medida.peso}</h2>
+            </div>
+            <div className="div-info">
+              <h1>Peso Suportado</h1>
+              <h2>{modals?.id_medida.peso_suportado}</h2>
+            </div>
             <Button onClick={() => setIsOpenModal(true)}>{icons.edit}Editar Modal</Button>
           </div>
 
         </aside>
         <div className="chatbot">
           <div className="container lower-container-colab">
-            <h1>Chamadas</h1>
+            <h1 style={({ fontSize: "32px", fontWeight: "700" })}>Chamadas</h1>
             <table>
               <thead>
                 <tr>

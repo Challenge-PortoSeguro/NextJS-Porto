@@ -291,6 +291,45 @@ main .modal_confirmar{
     border: 1px solid #0000001f;
 }
 
+@media (max-width: 830px) {
+    .lower-container table thead,
+    .lower-container table tbody,
+    .lower-container table tr,
+    .lower-container table th,
+    .lower-container table td {
+        display: block;
+        width: 100%;
+    }
+
+    .lower-container table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .lower-container table tbody tr {
+        border: 1px solid #0081f2;
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+
+    .lower-container table td {
+        border: none;
+        border-bottom: 1px solid #0000001f;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .lower-container table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+}
+
 
 
 .lower-container-colab{
@@ -324,4 +363,42 @@ main .modal_confirmar{
     padding: 8px;
     text-align: center;
     border: 1px solid #0000001f;
+}
+
+@media (max-width: 830px) {
+    .lower-container-colab table thead,
+    .lower-container-colab table tbody,
+    .lower-container-colab table tr,
+    .lower-container-colab table th,
+    .lower-container-colab table td {
+        display: block;
+        width: 100%;
+    }
+
+    .lower-container-colab table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .lower-container-colab table tbody tr {
+        border: 1px solid #0000001f;
+        margin-bottom: 12px;
+    }
+
+    .lower-container-colab table td {
+        border: none;
+        border-bottom: 1px solid #0000001f;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .lower-container-colab table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
 }
